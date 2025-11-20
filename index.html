@@ -1,310 +1,410 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Lanka Police App - Your Safety, Our Priority</title>
-    <link rel="stylesheet" href="landingpage.css">      
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Police Assistance - Instant Help. Smarter Safety.</title>
+    <meta name="description" content="Report crimes and traffic incidents instantly in Sri Lanka." />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#2563eb', hover: '#1d4ed8' },
+                        accent: { DEFAULT: '#f59e0b' },
+                        muted: { DEFAULT: '#f1f5f9', foreground: '#64748b' },
+                        background: '#ffffff',
+                        foreground: '#0f172a',
+                        charcoal: { DEFAULT: '#1e293b', light: '#334155' },
+                        border: '#e2e8f0'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                   },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }, // Moves up 20px
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Animation Utilities */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+    </style>
 </head>
-<body>
-    <nav class="nav-bar">
-        <div class="logo">
-            🚨 Sri Lanka Police App
+<body class="font-sans antialiased text-foreground bg-background pt-20">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-20">
+                
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+                        <i data-lucide="shield" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="font-bold text-xl tracking-tight">
+                        Safe<span class="text-primary">Lanka</span>
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Features</a>
+                    <a href="#how-it-works" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">How it Works</a>
+                    <a href="#benefits" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Why Us</a>
+                    <a href="#security" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Security</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="#download" class="hidden md:flex bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg hover:shadow-primary/25">
+                        Download Now
+                    </a>
+                    
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-muted-foreground hover:text-primary focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#innovations">Innovations</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+
+        <div id="mobile-menu" class="md:hidden bg-white border-b border-border">
+            <div class="container mx-auto px-4 py-4 flex flex-col gap-4">
+                <a href="#features" class="mobile-link text-base font-medium text-foreground p-2 hover:bg-muted rounded-md">Features</a>
+                <a href="#how-it-works" class="mobile-link text-base font-medium text-foreground p-2 hover:bg-muted rounded-md">How it Works</a>
+                <a href="#benefits" class="mobile-link text-base font-medium text-foreground p-2 hover:bg-muted rounded-md">Why Us</a>
+                <a href="#security" class="mobile-link text-base font-medium text-foreground p-2 hover:bg-muted rounded-md">Security</a>
+                <a href="#download" class="mobile-link w-full text-center bg-primary text-white py-3 rounded-md font-semibold">Download App</a>
+            </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="floating-shapes">
-            <div class="shape shape1"></div>
-            <div class="shape shape2"></div>
-            <div class="shape shape3"></div>
-        </div>
-        <div class="hero-content">
-            <h1>🚨 Sri Lanka Police App</h1>
-            <p class="hero-subtitle">Your Safety, Our Priority</p>
-            <p class="hero-description">A revolutionary digital platform connecting citizens with law enforcement through AI-powered safety features, real-time emergency response, and data-driven crime prevention.</p>
-            <div class="cta-buttons">
-                <a href="#" class="cta-button">📱 Download Now</a>
-                <a href="#" class="cta-button cta-button-secondary">▶️ Watch Demo</a>
+    <section id="hero" class="relative overflow-hidden bg-gradient-to-br from-background via-white to-muted py-20 lg:py-32">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left reveal-on-scroll">
+                    <div class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6 text-sm font-semibold">
+                        <i data-lucide="shield" class="w-4 h-4"></i>
+                        <span>Trusted by Sri Lankan Police</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-foreground leading-tight">
+                        Safe<span class="text-primary">Lanka</span>
+                    </h1>
+                    <p class="text-xl lg:text-2xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
+                        Instant Help. Smarter Safety.
+                    </p>
+                    <p class="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto lg:mx-0">
+                        Report crimes and traffic incidents instantly. Share your live location with police. Get help when you need it most.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button class="bg-primary hover:bg-primary-hover text-white shadow-lg hover:shadow-xl transition-all text-lg px-8 py-6 rounded-md flex items-center justify-center">
+                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                            App Store
+                        </button>
+                        <button class="border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-lg hover:shadow-xl transition-all text-lg px-8 py-6 rounded-md flex items-center justify-center">
+                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                            Google Play
+                        </button>
+                    </div>
+                </div>
+                <div class="relative flex justify-center lg:justify-end reveal-on-scroll">
+                  <div class="relative animate-float">
+                      <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse-slow"></div>
+                      <img src="Screenshot 2025-11-20 100724.png" alt="Smart Police Assistance App" class="relative w-64 lg:w-80 drop-shadow-2xl rounded-[3rem] border-8 border-gray-900" />
+                  </div>
+              </div>
             </div>
         </div>
-    </header>
-
-    <section class="problem-solution-section">
-        <div class="split-content">
-            <div class="content-box problem">
-                <h3>❌ The Problem</h3>
-                <p>Sri Lankan citizens face significant challenges when reporting crimes and emergencies. Traditional methods are time-consuming, lack transparency, and provide limited accessibility. There's no unified platform for police services, fine payments, or real-time safety information, leaving communities vulnerable and disconnected from law enforcement support.</p>
-            </div>
-            <div class="content-box solution">
-                <h3>✅ Our Solution</h3>
-                <p>A comprehensive mobile platform that bridges the gap between citizens and police through cutting-edge technology. One-tap emergency alerts, AI-powered threat detection, real-time tracking, and data-driven insights transform public safety into a modern, accessible, and transparent system that works for everyone.</p>
-            </div>
-        </div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute bottom-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10"></div>
     </section>
 
-    <section class="container" id="features">
-        <h2 class="section-title">Powerful Features</h2>
-        <p class="section-subtitle">Everything you need to stay safe and connected with law enforcement</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🆘</div>
-                <h3>Emergency SOS</h3>
-                <p>One-tap emergency alert with instant GPS tracking. Your location is shared immediately with nearby police stations and emergency contacts.</p>
+    <section id="features" class="py-20 bg-muted/30 scroll-mt-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-foreground">Powerful Features for Your Safety</h2>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto">Everything you need to stay safe and connected with law enforcement</p>
             </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>Smart Crime Reporting</h3>
-                <p>Submit detailed reports with photo and video evidence. Track your case status in real-time with complete transparency.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🕵️</div>
-                <h3>Anonymous Portal</h3>
-                <p>Report suspicious activities without revealing your identity. Your safety and privacy are completely protected.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🗺️</div>
-                <h3>Live Crime Maps</h3>
-                <p>Interactive heat maps showing real-time crime patterns, safety scores, and high-risk areas in your neighborhood.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">💳</div>
-                <h3>Digital Fine Payment</h3>
-                <p>View traffic violations and pay fines instantly through secure online payment. No queues, no paperwork.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📍</div>
-                <h3>Station Finder</h3>
-                <p>Locate nearest police stations with turn-by-turn directions, contact information, and real-time availability.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🔔</div>
-                <h3>Safety Alerts</h3>
-                <p>Receive instant notifications about emergencies, disasters, road closures, and safety warnings in your area.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <h3>Multilingual</h3>
-                <p>Full support for Sinhala, Tamil, and English. Accessible to every citizen across Sri Lanka.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🔍</div>
-                <h3>Lost & Found</h3>
-                <p>Report lost items or found belongings. Connect with owners through our secure verification system.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="innovation-section" id="innovations">
-        <div class="container">
-            <h2 class="section-title">Cutting-Edge Innovations</h2>
-            <p class="section-subtitle">AI and data science powering next-generation public safety</p>
-            <div class="innovation-grid">
-                <div class="innovation-item">
-                    <h4>🤖 AI Threat Detection</h4>
-                    <p>Advanced machine learning analyzes voice patterns, motion data, and behavior to automatically detect distress situations and trigger emergency protocols.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 reveal-on-scroll">
+                    <div class="bg-primary/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="alert-circle" class="w-7 h-7 text-primary"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Crime SOS</h3>
+                    <p class="text-muted-foreground leading-relaxed">Instantly alert police during emergencies. One tap sends your location and details.</p>
                 </div>
-                
-                <div class="innovation-item">
-                    <h4>📊 Predictive Analysis</h4>
-                    <p>Data science algorithms identify crime patterns, predict high-risk zones, and provide real-time safety scores for different areas and times.</p>
+                <div class="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 reveal-on-scroll">
+                    <div class="bg-accent/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="car" class="w-7 h-7 text-accent"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Traffic SOS</h3>
+                    <p class="text-muted-foreground leading-relaxed">Report traffic accidents, violations, or road hazards safely.</p>
                 </div>
-                
-                <div class="innovation-item">
-                    <h4>🎤 Voice Activation</h4>
-                    <p>Activate emergency mode hands-free using voice commands or phone gestures. Quick, discreet, and always accessible when you need it.</p>
+                <div class="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 reveal-on-scroll">
+                    <div class="bg-primary/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="map-pin" class="w-7 h-7 text-primary"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Real-Time Location</h3>
+                    <p class="text-muted-foreground leading-relaxed">Share your exact GPS location with police instantly.</p>
                 </div>
-                
-                <div class="innovation-item">
-                    <h4>👥 Trusted Network</h4>
-                    <p>Create your safety circle with automatic alerts if you don't reach your destination. Your trusted contacts stay informed and ready to help.</p>
+                <div class="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 reveal-on-scroll">
+                    <div class="bg-accent/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="file-text" class="w-7 h-7 text-accent"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Reason Selector</h3>
+                    <p class="text-muted-foreground leading-relaxed">Choose from preset emergency categories or type custom details.</p>
                 </div>
-                
-                <div class="innovation-item">
-                    <h4>⚡ Auto-Alert System</h4>
-                    <p>Automatically transmits live location, audio recordings, and vital information to emergency services even without internet via SMS backup.</p>
+                <div class="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 reveal-on-scroll">
+                    <div class="bg-primary/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="clock" class="w-7 h-7 text-primary"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Quick Reports</h3>
+                    <p class="text-muted-foreground leading-relaxed">Report incidents in under 10 seconds with our streamlined interface.</p>
                 </div>
-                
-                <div class="innovation-item">
-                    <h4>⌚ Wearable Support</h4>
-                    <p>Seamlessly integrates with smartwatches and panic buttons for faster, more discreet emergency activation from any device.</p>
-                </div>
-
-                <div class="innovation-item">
-                    <h4>🔋 Battery Optimization</h4>
-                    <p>Emergency mode automatically reduces power consumption to ensure your phone stays active long enough to complete rescue operations.</p>
-                </div>
-
-                <div class="innovation-item">
-                    <h4>📡 Offline Mode</h4>
-                    <p>Core emergency features work even without internet. SMS fallback ensures help arrives regardless of connectivity issues.</p>
+                <div class="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 reveal-on-scroll">
+                    <div class="bg-accent/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-4"><i data-lucide="shield-check" class="w-7 h-7 text-accent"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Verified System</h3>
+                    <p class="text-muted-foreground leading-relaxed">All reports are verified and logged with official police channels.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="stats-section">
-        <div class="container">
-            <h2 class="section-title" style="color: white;">Making Real Impact</h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Numbers that demonstrate our commitment to public safety</p>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>24/7</h3>
-                    <p>Continuous Protection</p>
+    <section class="py-20 bg-background">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">Your Safety Dashboard</h2>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto">Simple, intuitive interface designed for emergency situations</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer reveal-on-scroll">
+                    <div class="bg-primary w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-white"><i data-lucide="alert-circle" class="w-8 h-8"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Crime Reporting</h3>
+                    <p class="text-sm text-muted-foreground">Report theft or violence</p>
                 </div>
-                <div class="stat-item">
-                    <h3>100%</h3>
-                    <p>Secure & Encrypted</p>
+                <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer reveal-on-scroll">
+                    <div class="bg-accent w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-white"><i data-lucide="car" class="w-8 h-8"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Traffic Issues</h3>
+                    <p class="text-sm text-muted-foreground">Accidents and hazards</p>
                 </div>
-                <div class="stat-item">
-                    <h3>3</h3>
-                    <p>Languages Supported</p>
+                <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer reveal-on-scroll">
+                    <div class="bg-primary w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-white"><i data-lucide="bell" class="w-8 h-8"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Safety Alerts</h3>
+                    <p class="text-sm text-muted-foreground">Incidents near you</p>
                 </div>
-                <div class="stat-item">
-                    <h3><60s</h3>
-                    <p>Average Response Time</p>
+                <div class="bg-card border border-border rounded-xl p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer reveal-on-scroll">
+                    <div class="bg-accent w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-white"><i data-lucide="user" class="w-8 h-8"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Your Profile</h3>
+                    <p class="text-sm text-muted-foreground">History and settings</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="testimonial-section">
-        <div class="container">
-            <h2 class="section-title">What Citizens Say</h2>
-            <p class="section-subtitle">Real experiences from users across Sri Lanka</p>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">The SOS feature gave me peace of mind during a late-night emergency. Help arrived within minutes, and my family was notified immediately.</p>
-                    <div class="testimonial-author">Nimal Perera</div>
-                    <div class="testimonial-role">Colombo Resident</div>
+    <section id="how-it-works" class="py-20 bg-muted/30 scroll-mt-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">How It Works</h2>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto">Getting help is simple. Just three steps between you and safety.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="relative reveal-on-scroll">
+                    <div class="border-2 border-border bg-card h-full rounded-xl p-8 text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white text-2xl font-bold mb-6">01</div>
+                        <div class="w-20 h-20 mx-auto mb-6 bg-muted rounded-2xl flex items-center justify-center"><i data-lucide="smartphone" class="w-10 h-10 text-primary"></i></div>
+                        <h3 class="text-2xl font-semibold mb-4">Tap SOS Button</h3>
+                        <p class="text-muted-foreground">Open the app and press the SOS button. Designed to be accessible in stressful situations.</p>
+                    </div>
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 text-primary"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M5 16H27M27 16L19 8M27 16L19 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">Reporting a traffic incident was so easy with photo upload. I could track the complaint status and received updates throughout the process.</p>
-                    <div class="testimonial-author">Anjali Fernando</div>
-                    <div class="testimonial-role">Kandy Business Owner</div>
+                <div class="relative reveal-on-scroll">
+                    <div class="border-2 border-border bg-card h-full rounded-xl p-8 text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white text-2xl font-bold mb-6">02</div>
+                        <div class="w-20 h-20 mx-auto mb-6 bg-muted rounded-2xl flex items-center justify-center"><i data-lucide="message-square" class="w-10 h-10 text-primary"></i></div>
+                        <h3 class="text-2xl font-semibold mb-4">Share Reason</h3>
+                        <p class="text-muted-foreground">Select emergency category or type details. Add photos or voice notes if needed.</p>
+                    </div>
+                    <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 text-primary"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M5 16H27M27 16L19 8M27 16L19 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">The crime heat map helped me choose safer routes for my daily commute. It's incredible how technology can enhance personal safety.</p>
-                    <div class="testimonial-author">Rajeev Kumar</div>
-                    <div class="testimonial-role">Galle Professional</div>
+                <div class="relative reveal-on-scroll">
+                    <div class="border-2 border-border bg-card h-full rounded-xl p-8 text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white text-2xl font-bold mb-6">03</div>
+                        <div class="w-20 h-20 mx-auto mb-6 bg-muted rounded-2xl flex items-center justify-center"><i data-lucide="radio" class="w-10 h-10 text-primary"></i></div>
+                        <h3 class="text-2xl font-semibold mb-4">Police Alerted</h3>
+                        <p class="text-muted-foreground">Your live location and details are instantly sent to the nearest station.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="section-title" style="color: white;">Ready to Stay Safe?</h2>
-            <p style="font-size: 1.3em; margin-bottom: 40px; opacity: 0.95;">Join thousands of Sri Lankans using the app to stay connected with law enforcement</p>
-            <div class="cta-buttons">
-                <a href="#" class="cta-button" style="background: white; color: #e53935; box-shadow: 0 8px 25px rgba(255,255,255,0.3);">📱 Download the App Today</a>
+    <section id="benefits" class="py-20 bg-background scroll-mt-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">Why Choose Us?</h2>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto">Making a real difference in public safety across Sri Lanka</p>
             </div>
-            <div class="languages">
-                <span class="lang-badge">සිංහල</span>
-                <span class="lang-badge">தமிழ்</span>
-                <span class="lang-badge">English</span>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="border border-border bg-card rounded-xl p-6 text-center reveal-on-scroll">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center"><i data-lucide="zap" class="w-8 h-8 text-primary"></i></div>
+                    <h3 class="text-lg font-semibold mb-3">Faster Response</h3>
+                    <p class="text-sm text-muted-foreground">Police receive your exact location, reducing response time by up to 60%.</p>
+                </div>
+                <div class="border border-border bg-card rounded-xl p-6 text-center reveal-on-scroll">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center"><i data-lucide="check-circle" class="w-8 h-8 text-primary"></i></div>
+                    <h3 class="text-lg font-semibold mb-3">Verified Reporting</h3>
+                    <p class="text-sm text-muted-foreground">All reports are logged and tracked. No more lost complaints.</p>
+                </div>
+                <div class="border border-border bg-card rounded-xl p-6 text-center reveal-on-scroll">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center"><i data-lucide="shield" class="w-8 h-8 text-primary"></i></div>
+                    <h3 class="text-lg font-semibold mb-3">Safer Roads</h3>
+                    <p class="text-sm text-muted-foreground">Community-driven traffic reporting helps identify dangerous areas.</p>
+                </div>
+                <div class="border border-border bg-card rounded-xl p-6 text-center reveal-on-scroll">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center"><i data-lucide="trending-down" class="w-8 h-8 text-primary"></i></div>
+                    <h3 class="text-lg font-semibold mb-3">Efficient</h3>
+                    <p class="text-sm text-muted-foreground">Digital reports streamline operations, letting officers focus on critical situations.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="logo" style="justify-content: center; margin-bottom: 20px;">
-                🚨 Sri Lanka Police App
+    <section id="security" class="py-20 bg-charcoal text-white scroll-mt-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <div class="inline-flex items-center gap-2 bg-primary/20 text-white px-4 py-2 rounded-full mb-4 text-sm font-semibold">
+                    <i data-lucide="lock" class="w-4 h-4"></i><span>Bank-Level Security</span>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-bold mb-4">Your Data is Safe</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">We take security seriously. Every report, every location, every piece of data is protected.</p>
             </div>
-            <div class="footer-links">
-                <a href="#">About Us</a>
-                <a href="#">Features</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Contact</a>
-                <a href="#">Help Center</a>
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="bg-charcoal-light border border-gray-700 rounded-xl p-6 text-center reveal-on-scroll">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl mx-auto mb-4 flex items-center justify-center"><i data-lucide="lock" class="w-8 h-8 text-primary"></i></div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Encryption</h3>
+                    <p class="text-gray-300">Your reports and location data are encrypted. Only authorized police personnel can access your info.</p>
+                </div>
+                <div class="bg-charcoal-light border border-gray-700 rounded-xl p-6 text-center reveal-on-scroll">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl mx-auto mb-4 flex items-center justify-center"><i data-lucide="eye" class="w-8 h-8 text-primary"></i></div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Privacy</h3>
+                    <p class="text-gray-300">We never share your personal data with third parties. Your safety is our priority.</p>
+                </div>
+                <div class="bg-charcoal-light border border-gray-700 rounded-xl p-6 text-center reveal-on-scroll">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl mx-auto mb-4 flex items-center justify-center"><i data-lucide="database" class="w-8 h-8 text-primary"></i></div>
+                    <h3 class="text-xl font-semibold mb-3 text-white">Secure Storage</h3>
+                    <p class="text-gray-300">All data is stored on secure government servers with strict access controls.</p>
+                </div>
             </div>
-            <p style="margin-top: 30px;">&copy; 2025 Sri Lanka Police App. All rights reserved.</p>
-            <p style="margin-top: 10px; opacity: 0.8;">Transforming public safety through digital innovation</p>
+        </div>
+    </section>
+
+    <section id="download" class="py-24 bg-gradient-to-br from-primary via-primary-hover to-blue-900 text-white relative overflow-hidden scroll-mt-20">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center max-w-3xl mx-auto reveal-on-scroll">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6"><i data-lucide="shield" class="w-10 h-10 text-white"></i></div>
+                <h2 class="text-4xl lg:text-6xl font-bold mb-6">Stay Safe. Download Now.</h2>
+                <p class="text-xl lg:text-2xl mb-10 text-white/90">Join thousands of Sri Lankans who trust Smart Police Assistance for their safety</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-white text-primary hover:bg-gray-300 shadow-2xl text-lg px-8 py-6 rounded-md flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                        App Store
+                    </button>
+                    <button class="bg-white text-primary hover:bg-gray-300 shadow-2xl text-lg px-8 py-6 rounded-md flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                        Google Play
+                    </button>
+                </div>
+                <p class="text-sm text-white/70 mt-8">Available for iOS 12+ and Android 8.0+</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-charcoal text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"><i data-lucide="shield" class="w-6 h-6 text-white"></i></div>
+                    <div>
+                        <div class="font-bold text-lg">Smart Police Assistance</div>
+                        <div class="text-sm text-gray-400">Instant Help. Smarter Safety.</div>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm text-gray-400">© 2025 SafeLanka. All rights reserved.</p>
+                    <p class="text-sm text-gray-400 mt-1">Official partner of Sri Lankan Police Department</p>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Add scroll animation for elements
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // 1. Initialize Icons
+        lucide.createIcons();
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+        // 2. Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        // Observe all feature cards and innovation items
-        document.querySelectorAll('.feature-card, .innovation-item, .testimonial-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-            observer.observe(el);
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            // Change icon based on state
+            const icon = mobileMenu.classList.contains('open') ? 'x' : 'menu';
+            menuBtn.innerHTML = `<i data-lucide="${icon}" class="w-6 h-6"></i>`;
+            lucide.createIcons();
         });
 
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuBtn.innerHTML = `<i data-lucide="menu" class="w-6 h-6"></i>`;
+                lucide.createIcons();
             });
         });
 
-        // Add parallax effect to hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero && scrolled < hero.offsetHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+        // 3. Scroll Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
         });
-
-        // Animate stats on scroll
-        const animateStats = (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statItems = entry.target.querySelectorAll('.stat-item h3');
-                    statItems.forEach((stat, index) => {
-                        setTimeout(() => {
-                            stat.style.animation = 'pulse 1s ease-out';
-                        }, index * 100);
-                    });
-                }
-            });
-        };
-
-        const statsObserver = new IntersectionObserver(animateStats, { threshold: 0.5 });
-        const statsSection = document.querySelector('.stats-section');
-        if (statsSection) {
-            statsObserver.observe(statsSection);
-        }
     </script>
 </body>
 </html>
