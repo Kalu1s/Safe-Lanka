@@ -54,7 +54,6 @@
     </script>
 
     <style>
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -79,7 +78,6 @@
             transform: translateY(0);
         }
 
-        /* Glass Shine Effect on Hover */
         .glass-card {
             position: relative;
             overflow: hidden;
@@ -99,19 +97,18 @@
             left: 125%;
         }
 
-        /* Carousel Styles */
         .carousel-container {
             overflow: hidden;
             width: 100%;
         }
         .carousel-track {
             display: flex;
-            gap: 24px; /* 1.5rem */
+            gap: 24px; 
             width: max-content;
-            /* Transition is handled via JS for the infinite loop effect */
+
         }
         .carousel-item {
-            width: 100%; /* Will be overridden by JS calculation */
+            width: 100%; 
             flex-shrink: 0;
             box-sizing: border-box;
         }
@@ -148,6 +145,7 @@
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#features" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Features</a>
                     <a href="#how-it-works" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">How it Works</a>
+                    <a href="#why-choose-us" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Why Choose Us</a>
                     <a href="#about-mission" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">About</a>
                     <a href="#about-us" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Team</a>
                 </div>
@@ -168,6 +166,7 @@
             <div class="container mx-auto px-4 py-4 flex flex-col gap-2">
                 <a href="#features" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="star" class="w-4 h-4 text-primary"></i> Features</a>
                 <a href="#how-it-works" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="cpu" class="w-4 h-4 text-primary"></i> How it Works</a>
+                <a href="#why-choose-us" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="info" class="w-4 h-4 text-primary"></i> Why Choose Us</a>
                 <a href="#about-mission" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="info" class="w-4 h-4 text-primary"></i> About</a>
                 <a href="#about-us" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="users" class="w-4 h-4 text-primary"></i> Team</a>
                 <div class="h-px bg-border my-2"></div>
@@ -231,7 +230,6 @@
                                 src="Screenshot 2025-11-20 100724.png" 
                                 alt="App Interface" 
                                 class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
-                                onerror="this.src='https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000'"
                             />
                             <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-white/10 to-transparent pointer-events-none"></div>
                         </div>
@@ -307,20 +305,20 @@
                     <div class="carousel-item">
                         <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                             <div class="bg-purple-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="video" class="w-8 h-8 text-purple-600 group-hover:text-white"></i>
+                                <i data-lucide="radar" class="w-8 h-8 text-purple-600 group-hover:text-white"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">4. Video Evidence</h3>
-                            <p class="text-slate-600 leading-relaxed">Upload short video clips or photos directly to the report for instant proof.</p>
+                            <h3 class="text-xl font-bold mb-3 text-slate-800">4. Nearby Police Station Locator</h3>
+                            <p class="text-slate-600 leading-relaxed">Tracks your live location and provide you with the nearest police stations.</p>
                         </div>
                     </div>
 
                     <div class="carousel-item">
                         <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                             <div class="bg-green-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="clock" class="w-8 h-8 text-green-600 group-hover:text-white"></i>
+                               <i data-lucide="eye-off" class="w-8 h-8 text-gray-600 group-hover:text-white"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">5. 10-Second Report</h3>
-                            <p class="text-slate-600 leading-relaxed">Streamlined interface designed to submit a report in under 10 seconds.</p>
+                            <h3 class="text-xl font-bold mb-3 text-slate-800">5. Anonymous Reporting Portal </h3>
+                            <p class="text-slate-600 leading-relaxed">Allows the citizen to report crimes anonymously for safety.</p>
                         </div>
                     </div>
 
@@ -337,10 +335,10 @@
                     <div class="carousel-item">
                         <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                             <div class="bg-gray-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gray-700 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="eye-off" class="w-8 h-8 text-gray-600 group-hover:text-white"></i>
+                                <i data-lucide="receipt" class="w-8 h-8 text-gray-600 group-hover:text-white"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">7. Silent Mode</h3>
-                            <p class="text-slate-600 leading-relaxed">Report discreetly. The app dims and mutes audio for dangerous situations.</p>
+                            <h3 class="text-xl font-bold mb-3 text-slate-800">7. Traffic Fine Viewing & Payment</h3>
+                            <p class="text-slate-600 leading-relaxed">Check your traffic fines instantly and make secure online payments without visiting a police station.</p>
                         </div>
                     </div>
 
@@ -349,7 +347,7 @@
                             <div class="bg-teal-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
                                 <i data-lucide="languages" class="w-8 h-8 text-teal-600 group-hover:text-white"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">8. Tri-Lingual</h3>
+                            <h3 class="text-xl font-bold mb-3 text-slate-800">8. Multi language Support</h3>
                             <p class="text-slate-600 leading-relaxed">Full support for Sinhala, Tamil, and English languages.</p>
                         </div>
                     </div>
@@ -357,10 +355,10 @@
                     <div class="carousel-item">
                         <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                             <div class="bg-red-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="bell-ring" class="w-8 h-8 text-red-600 group-hover:text-white"></i>
+                                <i data-lucide="cctv" class="w-8 h-8 text-red-600 group-hover:text-white"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">9. Area Alerts</h3>
-                            <p class="text-slate-600 leading-relaxed">Get notified if you enter a high-crime zone or an accident-prone area.</p>
+                            <h3 class="text-xl font-bold mb-3 text-slate-800">9. Crime and Complaint Reporting</h3>
+                            <p class="text-slate-600 leading-relaxed">Report crimes quickly with photos, videos, and location details.</p>
                         </div>
                     </div>
 
@@ -377,10 +375,20 @@
                     <div class="carousel-item">
                         <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                             <div class="bg-yellow-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-yellow-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="wifi-off" class="w-8 h-8 text-yellow-600 group-hover:text-white"></i>
+                                <i data-lucide="search-check" class="w-8 h-8 text-yellow-600 group-hover:text-white"></i>
                             </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">11. Offline Mode</h3>
-                            <p class="text-slate-600 leading-relaxed">No data? No problem. The app switches to SMS-based reporting automatically.</p>
+                            <h3 class="text-xl font-bold mb-3 text-slate-800">11. Lost and Found Reporting Portal</h3>
+                            <p class="text-slate-600 leading-relaxed">Report lost or found items easily and help connect belongings with their rightful owners.</p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="bg-yellow-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-yellow-600 group-hover:text-white transition-colors duration-300">
+                                <i data-lucide="chart-bar-increasing" class="w-8 h-8 text-yellow-600 group-hover:text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-slate-800">12. Case Tracking & Status Updates</h3>
+                            <p class="text-slate-600 leading-relaxed">Monitor the progress of your cases through a unique case ID and receive timely updates from the police.</p>
                         </div>
                     </div>
 
@@ -480,21 +488,21 @@
                  
                  <div class="bg-white p-8 rounded-3xl shadow-xl border border-border reveal-on-scroll delay-200">
                      <div class="grid grid-cols-2 gap-4 text-center">
-                         <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-primary mb-2">50k+</div>
-                             <div class="text-sm text-slate-500 font-medium">Downloads</div>
+                        <div class="p-6 bg-slate-50 rounded-2xl">
+                             <div class="text-4xl font-bold text-red-600 mb-2">100%</div>
+                             <div class="text-sm text-slate-500 font-medium">For Citizens</div>
                          </div>
                          <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-accent mb-2">4.8</div>
-                             <div class="text-sm text-slate-500 font-medium">App Store Rating</div>
-                         </div>
-                         <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-green-600 mb-2">2min</div>
+                             <div class="text-4xl font-bold text-blue-600 mb-2">2min</div>
                              <div class="text-sm text-slate-500 font-medium">Avg Response</div>
                          </div>
                          <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-purple-600 mb-2">24/7</div>
+                             <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
                              <div class="text-sm text-slate-500 font-medium">Live Support</div>
+                         </div>
+                         <div class="p-6 bg-slate-50 rounded-2xl">
+                             <div class="text-4xl font-bold text-red-600 mb-2">10+</div>
+                             <div class="text-sm text-slate-500 font-medium">Services</div>
                          </div>
                      </div>
                  </div>
