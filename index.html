@@ -3,49 +3,46 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SafeLanka - Advanced Police Assistance & Public Safety</title>
-    <meta name="description" content="Next-gen public safety app for Sri Lanka. Report crimes, traffic incidents, and get instant police help." />
+    <title>SafeLanka | The Future of Public Safety</title>
+    <meta name="description" content="Next-gen public safety app for Sri Lanka." />
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        primary: { DEFAULT: '#043382', hover: '#1d4ed8' },
-                        accent: { DEFAULT: '#f59e0b' },
-                        muted: { DEFAULT: '#f1f5f9', foreground: '#64748b' },
-                        background: '#ffffff',
-                        foreground: '#0f172a',
-                        charcoal: { DEFAULT: '#1e293b', light: '#334155' },
-                        border: '#e2e8f0',
-                        'neon-cyan': '#00f2ea',
-                    },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Rajdhani', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#043382',
+                        cyan: { DEFAULT: '#00f2ea', dim: 'rgba(0, 242, 234, 0.1)' },
+                        dark: { bg: '#02040a', surface: '#0d111c', border: '#1e293b' },
+                        light: { bg: '#f8fafc', surface: '#ffffff', border: '#e2e8f0' }
                     },
                     animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'scan': 'scan 3s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
-                        'float-delayed': 'float 6s ease-in-out 3s infinite',
-                        'shimmer': 'shimmer 2.5s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                   },
+                        'carousel': 'scroll 40s linear infinite',
+                    },
                     keyframes: {
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        },
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
                         },
-                        shimmer: {
-                            '0%': { transform: 'translateX(-100%)' },
-                            '100%': { transform: 'translateX(100%)' }
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' }
                         }
                     }
                 }
@@ -54,194 +51,148 @@
     </script>
 
     <style>
-        ::-webkit-scrollbar {
-            width: 10px;
+        body { @apply transition-colors duration-500; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { @apply bg-transparent; }
+        ::-webkit-scrollbar-thumb { @apply bg-slate-500 rounded-full hover:bg-cyan; }
+
+        /* Holographic Glass Effect */
+        .glass {
+            @apply backdrop-blur-xl border transition-all duration-300;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
         }
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
+        .dark .glass {
+            background: rgba(13, 17, 28, 0.9);
+            border-color: rgba(0, 242, 234, 0.3);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #043382;
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00f2ea;
+        .glass:hover {
+            @apply shadow-[0_0_30px_rgba(0,242,234,0.15)] border-cyan/80 transform -translate-y-1;
+            background: rgba(13, 17, 28, 0.95);
         }
 
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+            background-color: #00f2ea; transition: width 0.3s ease;
         }
-        .reveal-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .nav-link:hover::after { width: 100%; }
 
-        .glass-card {
-            position: relative;
-            overflow: hidden;
-        }
-        .glass-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            transition: all 0.75s;
-        }
-        .glass-card:hover::after {
-            left: 125%;
-        }
+        .typing-cursor::after { content: '|'; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        .carousel-container {
-            overflow: hidden;
-            width: 100%;
-        }
-        .carousel-track {
-            display: flex;
-            gap: 24px; 
-            width: max-content;
-
-        }
-        .carousel-item {
-            width: 100%; 
-            flex-shrink: 0;
-            box-sizing: border-box;
-        }
+        #splash { transition: opacity 0.8s ease-out, visibility 0.8s; }
         
-        #mobile-menu {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
+        .phone-container {
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
         }
-        #mobile-menu.open {
-            max-height: 500px;
-            opacity: 1;
+        .phone-container:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+
+        canvas#network-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+        /* Fixed: Only pauses when individual card or carousel area is focused, doesn't force all highlights */
+        .carousel-container:hover .animate-carousel { animation-play-state: paused; }
+
+        .glitch-text { position: relative; }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #02040a;
         }
+        .glitch-text::before { left: 2px; text-shadow: -1px 0 #00f2ea; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
+        .glitch-text::after { left: -2px; text-shadow: -1px 0 #2563eb; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim2 5s infinite linear alternate-reverse; }
+        
+        @keyframes glitch-anim { 0% { clip: rect(13px, 9999px, 81px, 0); } 100% { clip: rect(63px, 9999px, 15px, 0); } }
+        @keyframes glitch-anim2 { 0% { clip: rect(65px, 9999px, 92px, 0); } 100% { clip: rect(14px, 9999px, 92px, 0); } }
     </style>
 </head>
-<body class="font-sans antialiased text-foreground bg-background pt-20 selection:bg-neon-cyan selection:text-charcoal">
+<body class="bg-light-bg text-slate-800 dark:bg-dark-bg dark:text-slate-100 overflow-x-hidden selection:bg-cyan selection:text-black">
 
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-border shadow-sm transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-20">
-                
-                <a href="#" class="flex items-center gap-3 group">
-                    <img 
-                        src="logo.jpg" 
-                        alt="Safe Lanka Logo" 
-                        class="w-12 h-12 rounded-full object-cover shadow-md border-2 border-white group-hover:border-blue-100 transition-all duration-300 group-hover:scale-110"
-                    >
-                    <div class="font-bold text-xl tracking-tight text-slate-800">
-                        Safe<span class="text-primary group-hover:text-blue-600 transition-colors">Lanka</span>
-                    </div>
-                </a>
+    <canvas id="network-bg"></canvas>
 
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#features" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Features</a>
-                    <a href="#how-it-works" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">How it Works</a>
-                    <a href="#why-choose-us" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Why Choose Us</a>
-                    <a href="#about-mission" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">About</a>
-                    <a href="#about-us" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-primary after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">Team</a>
+    <div id="splash" class="fixed inset-0 z-[100] bg-[#02040a] flex flex-col items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20" style="background-image: linear-gradient(#00f2ea 1px, transparent 1px), linear-gradient(90deg, #00f2ea 1px, transparent 1px); background-size: 50px 50px; background-position: center;"></div>
+        <div class="relative z-10 flex flex-col items-center text-center">
+            <div class="relative w-48 h-48 mb-10 flex items-center justify-center">
+                <div class="absolute inset-0 border-2 border-slate-800 rounded-full"></div>
+                <div class="absolute inset-0 border-t-2 border-cyan rounded-full animate-spin"></div>
+                <div class="absolute inset-4 border-b-2 border-blue-600 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
+                <div class="absolute inset-0 bg-cyan/5 rounded-full blur-2xl animate-pulse"></div>
+                <img src="logo.jpg" class="relative z-20 w-32 h-32 rounded-full border-2 border-white/10 shadow-[0_0_40px_rgba(0,242,234,0.4)] object-cover" alt="Logo">
+            </div>
+            <h1 class="font-display text-5xl md:text-7xl font-bold text-white tracking-widest mb-6 relative glitch-text" data-text="SAFELANKA">SAFELANKA</h1>
+            <div class="flex flex-col items-center gap-2 w-80">
+                <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden relative">
+                    <div id="loading-bar" class="h-full bg-gradient-to-r from-blue-600 to-cyan w-0 transition-all duration-[500ms] ease-out"></div>
                 </div>
-
-                <div class="flex items-center gap-4">
-                    <a href="#download" class="hidden md:flex bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0">
-                        Download Now
-                    </a>
-                    
-                    <button id="mobile-menu-btn" class="md:hidden p-2 text-muted-foreground hover:text-primary focus:outline-none transition-transform active:scale-90">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </button>
+                <div class="flex justify-between w-full text-xs font-mono text-cyan/80 mt-1 uppercase tracking-wider">
+                    <span id="loading-text">INITIALIZING CORE...</span>
+                    <span id="loading-percent">0%</span>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="mobile-menu" class="md:hidden bg-white border-b border-border shadow-xl">
-            <div class="container mx-auto px-4 py-4 flex flex-col gap-2">
-                <a href="#features" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="star" class="w-4 h-4 text-primary"></i> Features</a>
-                <a href="#how-it-works" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="cpu" class="w-4 h-4 text-primary"></i> How it Works</a>
-                <a href="#why-choose-us" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="info" class="w-4 h-4 text-primary"></i> Why Choose Us</a>
-                <a href="#about-mission" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="info" class="w-4 h-4 text-primary"></i> About</a>
-                <a href="#about-us" class="mobile-link text-base font-medium text-foreground p-3 hover:bg-blue-50 rounded-lg transition-colors flex items-center gap-3"><i data-lucide="users" class="w-4 h-4 text-primary"></i> Team</a>
-                <div class="h-px bg-border my-2"></div>
-                <a href="#download" class="mobile-link w-full text-center bg-primary text-white py-3 rounded-lg font-semibold shadow-md active:scale-95 transition-transform">Download App</a>
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-cyan/20 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-lg" id="navbar">
+        <div class="container mx-auto px-8 md:px-24 lg:px-32 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-cyan rounded-full blur opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                    <img src="logo.jpg" class="w-10 h-10 rounded-full relative z-10 border-2 border-slate-400 dark:border-cyan shadow-md">
+                </div>
+                <div class="font-display font-bold text-xl tracking-wider">SAFE<span class="text-blue-600 dark:text-cyan">LANKA</span></div>
+            </a>
+            <div class="hidden md:flex items-center gap-10">
+                <a href="#features" class="nav-link font-medium hover:text-blue-600 dark:hover:text-cyan tracking-wide transition-colors">FEATURES</a>
+                <a href="#how-it-works" class="nav-link font-medium hover:text-blue-600 dark:hover:text-cyan tracking-wide transition-colors">PROTOCOL</a>
+                <a href="#about-us" class="nav-link font-medium hover:text-blue-600 dark:hover:text-cyan tracking-wide transition-colors">TEAM</a>
             </div>
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors z-20 border border-transparent hover:border-cyan">
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+                </button>
+                <a href="#download" class="hidden md:flex items-center gap-2 bg-slate-900 dark:bg-cyan text-white dark:text-black px-6 py-2 rounded-lg font-bold hover:bg-blue-700 dark:hover:bg-white transition-all shadow-lg hover:shadow-cyan/50 transform hover:-translate-y-0.5">
+                    GET ACCESS <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-dark-bg border-t border-slate-700 p-6 flex-col gap-4 shadow-2xl">
+            <a href="#features" class="block p-3 hover:bg-cyan/10 rounded text-cyan">FEATURES</a>
+            <a href="#how-it-works" class="block p-3 hover:bg-cyan/10 rounded text-cyan">PROTOCOL</a>
+            <a href="#download" class="block w-full text-center bg-cyan text-black py-3 font-bold mt-4 rounded">DOWNLOAD APP</a>
         </div>
     </nav>
 
-    <section id="hero" class="relative overflow-hidden bg-slate-950 py-20 lg:py-32 min-h-[90vh] flex items-center">
-        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-[#0a1529] to-[#041229]"></div>
-        
-        <div class="absolute top-20 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px] -z-10 mix-blend-screen animate-float"></div>
-        <div class="absolute bottom-20 left-10 w-[30rem] h-[30rem] bg-indigo-600/10 rounded-full blur-[120px] -z-10 mix-blend-screen animate-float-delayed"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(0,242,234,0.05)_0%,transparent_70%)] pointer-events-none"></div>
-
-        <div class="container mx-auto px-6 lg:px-32 relative z-10">
+    <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+        <div class="container mx-auto px-8 md:px-24 lg:px-32 relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left reveal-on-scroll">
-                    
-                    <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-neon-cyan px-4 py-2 rounded-full mb-8 text-sm font-semibold backdrop-blur-md hover:bg-white/10 transition-colors cursor-default animate-fade-in-up" style="animation-delay: 0.1s;">
-                        <span class="relative flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-neon-cyan"></span>
-                        </span>
-                        <span>Live with Sri Lankan Police</span>
+                <div class="order-2 lg:order-1 reveal-slide-up">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-cyan/50 bg-cyan/10 text-cyan text-xs font-display tracking-widest mb-6">
+                        <span class="w-2 h-2 bg-cyan rounded-full animate-pulse"></span> SYSTEM ONLINE
                     </div>
-                    
-                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 text-white leading-[1.1] animate-fade-in-up" style="animation-delay: 0.2s;">
-                        Smart Police <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-neon-cyan">Assistance</span>
-                    </h1>
-                    
-                    <p class="text-xl lg:text-2xl text-slate-300 mb-8 max-w-xl mx-auto lg:mx-0 animate-fade-in-up" style="animation-delay: 0.3s;">
-                        Report crimes instantly. Share live location. <br class="hidden lg:block">Get verified help when seconds count.
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up" style="animation-delay: 0.4s;">
-                        <button class="group relative overflow-hidden bg-white text-slate-900 hover:bg-blue-50 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(0,242,234,0.4)] transition-all duration-300 text-lg px-8 py-4 rounded-xl flex items-center justify-center font-bold">
-                            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
-                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                            </svg>
-                            App Store
+                    <h1 class="font-display text-5xl lg:text-7xl font-bold mb-6 leading-tight">NEXT GEN <br><span id="typewriter" class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan typing-cursor"></span></h1>
+                    <p class="text-lg lg:text-xl text-slate-500 dark:text-slate-400 mb-8 max-w-lg leading-relaxed">Direct neural link to Sri Lankan Emergency Services. Zero latency. 100% Verified. The future of citizen safety is in your pocket.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="relative group px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-black font-display font-bold tracking-wider overflow-hidden rounded-lg">
+                            <span class="relative z-10 flex items-center gap-2"><i data-lucide="apple"></i> APP STORE</span>
+                            <div class="absolute inset-0 bg-cyan transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 -z-0"></div>
                         </button>
-                        
-                        <button class="group bg-transparent border-2 border-slate-600 text-white hover:border-white hover:bg-white/5 shadow-lg transition-all text-lg px-8 py-4 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 mr-2 group-hover:text-neon-cyan transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-                            </svg>
-                            Google Play
+                        <button class="relative group px-8 py-4 border border-slate-900 dark:border-white text-slate-900 dark:text-white font-display font-bold tracking-wider hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors rounded-lg">
+                            <span class="flex items-center gap-2"><i data-lucide="play-circle"></i> GOOGLE PLAY</span>
                         </button>
                     </div>
                 </div>
-                
-                <div class="relative flex justify-center lg:justify-end reveal-on-scroll delay-200">
-                    <div class="relative animate-float">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-neon-cyan blur-[60px] opacity-40 rounded-full animate-pulse-slow"></div>
-                        
-                        <div class="relative w-64 lg:w-80 h-[700px] bg-black rounded-[3rem] border-8 border-slate-800 shadow-2xl shadow-black/80 overflow-hidden flex items-center justify-center">
-                             <img 
-                                src="Screenshot 2025-11-20 100724.png" 
-                                alt="App Interface" 
-                                class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
-                            />
-                            <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-white/10 to-transparent pointer-events-none"></div>
-                        </div>
-
-                        <div class="absolute -bottom-6 -left-6 bg-charcoal border border-slate-700 p-4 rounded-xl shadow-xl flex items-center gap-3 animate-float-delayed backdrop-blur-md">
-                            <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-                                <i data-lucide="check-circle-2" class="text-green-400 w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <div class="text-white font-bold text-sm">Response Time</div>
-                                <div class="text-green-400 text-xs font-mono">&lt; 5 Minutes</div>
-                            </div>
+                <div class="order-1 lg:order-2 flex justify-center perspective-1000">
+                    <div class="phone-container relative w-[300px] h-[600px] bg-black rounded-[45px] border-4 border-slate-800 shadow-[0_0_50px_rgba(0,242,234,0.2)] overflow-hidden animate-float">
+                        <div class="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-transparent via-cyan/20 to-transparent h-[20%] w-full animate-scan opacity-50"></div>
+                        <div class="relative w-full h-full bg-slate-900" id="hero-slideshow">
+                            <img src="home.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100 slide-img" alt="App Screen">
+                            <img src="select account type.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide-img" alt="App Screen">
+                            <img src="Citizen login.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide-img" alt="App Screen">
+                            <img src="crime sos.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide-img" alt="App Screen">
+                            <img src="traffic sos.jpeg" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 slide-img" alt="App Screen">
                         </div>
                     </div>
                 </div>
@@ -249,614 +200,212 @@
         </div>
     </section>
 
-    <section id="features" class="py-24 bg-muted/30 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
-        
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal-on-scroll">
-                <div class="max-w-2xl">
-                    <h2 class="text-4xl lg:text-5xl font-bold mb-4 text-foreground">11 Powerful Ways We Protect You</h2>
-                    <p class="text-xl text-muted-foreground">Swipe to explore our comprehensive suite of safety tools.</p>
+    <section id="features" class="py-24 relative border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-transparent backdrop-blur-sm">
+        <div class="container mx-auto px-8 md:px-24 lg:px-32 mb-12">
+            <h2 class="font-display text-4xl font-bold mb-2">SYSTEM MODULES</h2>
+            <p class="text-slate-500">Live capability analysis.</p>
+        </div>
+        <div class="carousel-container w-full overflow-hidden relative">
+            <div class="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-light-bg dark:from-dark-bg to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-light-bg dark:from-dark-bg to-transparent z-10 pointer-events-none"></div>
+            <div class="flex gap-6 animate-carousel hover:pause w-max pl-8 lg:pl-32">
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group cursor-pointer border-2 border-slate-700 dark:border-slate-600 hover:border-cyan flex flex-col justify-center">
+                    <i data-lucide="alert-triangle" class="w-8 h-8 text-red-500 mb-1 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl font-bold mb-1 text-slate-800 dark:text-white">CRIME SOS</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-lg leading-relaxed font-medium">Sending live location to the Police</p>
+                    <div class="mt-2 h-1 w-12 bg-red-500 group-hover:w-full transition-all duration-500"></div>
                 </div>
-                
-                <div class="flex gap-4 mt-6 md:mt-0">
-                    <button id="prevBtn" class="w-12 h-12 rounded-full border border-border bg-white hover:bg-primary hover:text-white hover:border-primary flex items-center justify-center transition-all shadow-sm hover:shadow-lg">
-                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
-                    </button>
-                    <button id="nextBtn" class="w-12 h-12 rounded-full border border-border bg-white hover:bg-primary hover:text-white hover:border-primary flex items-center justify-center transition-all shadow-sm hover:shadow-lg">
-                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                    </button>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-orange-400 flex flex-col justify-center">
+                    <i data-lucide="car" class="w-8 h-8 text-orange-400 mb-1 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl font-bold mb-1">TRAFFIC GRID</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-lg font-medium">Real-time incident reporting.</p>
+                    <div class="mt-2 h-1 w-12 bg-orange-400 group-hover:w-full transition-all duration-500"></div>
                 </div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-cyan flex flex-col justify-center">
+                    <i data-lucide="radar" class="w-8 h-8 text-cyan mb-1 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl font-bold mb-1">LIVE TRACK</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-lg font-medium">Active GPS sharing during emergencies.</p>
+                    <div class="mt-2 h-1 w-12 bg-cyan group-hover:w-full transition-all duration-500"></div>
+                </div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-slate-400 flex flex-col justify-center">
+                    <i data-lucide="eye-off" class="w-8 h-8 text-slate-400 mb-1 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl font-bold mb-1">ANONYMOUS MODE</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-lg font-medium">Anonymous encrypted crime reporting.</p>
+                    <div class="mt-2 h-1 w-12 bg-slate-400 group-hover:w-full transition-all duration-500"></div>
+                </div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-green-500 flex flex-col justify-center">
+                    <i data-lucide="scan-face" class="w-8 h-8 text-green-500 mb-1 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl font-bold mb-1">DIGITAL ID</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-lg font-medium">NIC integration for verification protocols.</p>
+                    <div class="mt-2 h-1 w-12 bg-green-500 group-hover:w-full transition-all duration-500"></div>
+                </div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-purple-500 flex flex-col justify-center">
+                    <i data-lucide="receipt" class="w-8 h-8 text-purple-500 mb-1 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl font-bold mb-1">FINES</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-lg font-medium">Instant payments for traffic violations.</p>
+                    <div class="mt-2 h-1 w-12 bg-purple-500 group-hover:w-full transition-all duration-500"></div>
+                </div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-cyan flex flex-col justify-center"><i data-lucide="alert-triangle" class="w-8 h-8 text-red-500 mb-1"></i><h3 class="font-display text-2xl font-bold mb-1">CRIME SOS</h3><p class="text-lg font-medium">Sending live location to the Police</p><div class="mt-2 h-1 w-12 bg-red-500 group-hover:w-full"></div></div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-orange-400 flex flex-col justify-center"><i data-lucide="car" class="w-8 h-8 text-orange-400 mb-1"></i><h3 class="font-display text-2xl font-bold mb-1">TRAFFIC GRID</h3><p class="text-lg font-medium">Real-time incident reporting.</p><div class="mt-2 h-1 w-12 bg-orange-400 group-hover:w-full"></div></div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-cyan flex flex-col justify-center"><i data-lucide="radar" class="w-8 h-8 text-cyan mb-1"></i><h3 class="font-display text-2xl font-bold mb-1">LIVE TRACK</h3><p class="text-lg font-medium">Active GPS sharing during emergencies.</p><div class="mt-2 h-1 w-12 bg-cyan group-hover:w-full"></div></div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-slate-400 flex flex-col justify-center"><i data-lucide="eye-off" class="w-8 h-8 text-slate-400 mb-1"></i><h3 class="font-display text-2xl font-bold mb-1">ANONYMOUS MODE</h3><p class="text-lg font-medium">Anonymous encrypted reporting.</p><div class="mt-2 h-1 w-12 bg-slate-400 group-hover:w-full"></div></div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-green-500 flex flex-col justify-center"><i data-lucide="scan-face" class="w-8 h-8 text-green-500 mb-1"></i><h3 class="font-display text-2xl font-bold mb-1">DIGITAL ID</h3><p class="text-lg font-medium">NIC integration verification.</p><div class="mt-2 h-1 w-12 bg-green-500 group-hover:w-full"></div></div>
+                <div class="min-w-[240px] md:min-w-[280px] h-[180px] glass p-4 rounded-lg group border-2 border-slate-700 dark:border-slate-600 hover:border-purple-500 flex flex-col justify-center"><i data-lucide="receipt" class="w-8 h-8 text-purple-500 mb-1"></i><h3 class="font-display text-2xl font-bold mb-1">FINES</h3><p class="text-lg font-medium">Instant digital payments.</p><div class="mt-2 h-1 w-12 bg-purple-500 group-hover:w-full"></div></div>
             </div>
-
-            <div class="carousel-container reveal-on-scroll" id="carousel-container">
-                <div class="carousel-track" id="track">
-                    
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="alert-circle" class="w-8 h-8 text-primary group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">1. Crime SOS</h3>
-                            <p class="text-slate-600 leading-relaxed">Instantly alert police. One tap sends your ID and geolocation to the nearest control room.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-accent/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="car" class="w-8 h-8 text-accent group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">2. Traffic SOS</h3>
-                            <p class="text-slate-600 leading-relaxed">Report accidents or road hazards immediately. Helps police clear roads faster.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="map-pin" class="w-8 h-8 text-blue-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">3. Live GPS Tracking</h3>
-                            <p class="text-slate-600 leading-relaxed">Share your real-time movement with police while an incident is active.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-purple-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="radar" class="w-8 h-8 text-purple-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">4. Nearby Police Station Locator</h3>
-                            <p class="text-slate-600 leading-relaxed">Tracks your live location and provide you with the nearest police stations.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-green-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
-                               <i data-lucide="eye-off" class="w-8 h-8 text-gray-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">5. Anonymous Reporting Portal </h3>
-                            <p class="text-slate-600 leading-relaxed">Allows the citizen to report crimes anonymously for safety.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-orange-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="shield-check" class="w-8 h-8 text-orange-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">6. Verified Identity</h3>
-                            <p class="text-slate-600 leading-relaxed">Integrates with NIC system to prevent fake reports and ensure accountability.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-gray-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gray-700 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="receipt" class="w-8 h-8 text-gray-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">7. Traffic Fine Viewing & Payment</h3>
-                            <p class="text-slate-600 leading-relaxed">Check your traffic fines instantly and make secure online payments without visiting a police station.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-teal-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="languages" class="w-8 h-8 text-teal-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">8. Multi language Support</h3>
-                            <p class="text-slate-600 leading-relaxed">Full support for Sinhala, Tamil, and English languages.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-red-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="cctv" class="w-8 h-8 text-red-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">9. Crime and Complaint Reporting</h3>
-                            <p class="text-slate-600 leading-relaxed">Report crimes quickly with photos, videos, and location details.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-indigo-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="users" class="w-8 h-8 text-indigo-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">10. Emergency Contacts</h3>
-                            <p class="text-slate-600 leading-relaxed">Automatically notify your trusted family members when you use SOS.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-yellow-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-yellow-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="search-check" class="w-8 h-8 text-yellow-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">11. Lost and Found Reporting Portal</h3>
-                            <p class="text-slate-600 leading-relaxed">Report lost or found items easily and help connect belongings with their rightful owners.</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="glass-card bg-white border border-border rounded-2xl p-8 h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="bg-yellow-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-yellow-600 group-hover:text-white transition-colors duration-300">
-                                <i data-lucide="chart-bar-increasing" class="w-8 h-8 text-yellow-600 group-hover:text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-800">12. Case Tracking & Status Updates</h3>
-                            <p class="text-slate-600 leading-relaxed">Monitor the progress of your cases through a unique case ID and receive timely updates from the police.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
-            <div class="flex justify-center mt-8 gap-2" id="carousel-dots">
-                </div>
         </div>
     </section>
 
-    <section id="how-it-works" class="py-24 bg-background scroll-mt-20">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-20 reveal-on-scroll">
-                <h2 class="text-4xl lg:text-5xl font-bold mb-4">Safety in 3 Steps</h2>
-                <p class="text-xl text-muted-foreground max-w-2xl mx-auto">Complex technology, simplified for emergencies.</p>
-            </div>
-            
-            <div class="relative max-w-5xl mx-auto">
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-border -translate-y-1/2 -z-10"></div>
-                
-                <div class="grid md:grid-cols-3 gap-12">
-                    <div class="relative reveal-on-scroll group">
-                        <div class="bg-background p-4 border border-border rounded-2xl text-center hover:border-primary transition-colors duration-300 h-full">
-                            <div class="w-20 h-20 mx-auto -mt-10 bg-primary text-white rounded-2xl flex items-center justify-center text-3xl font-bold shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">01</div>
-                            <div class="mt-8 mb-6 bg-blue-50 w-20 h-20 mx-auto rounded-full flex items-center justify-center">
-                                <i data-lucide="smartphone" class="w-10 h-10 text-primary"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-3">Tap SOS</h3>
-                            <p class="text-muted-foreground">Open the app. The large SOS button is always on the home screen.</p>
-                        </div>
+    <section id="how-it-works" class="py-24 bg-slate-50/50 dark:bg-[#050a14]/50 backdrop-blur-sm overflow-hidden">
+        <div class="container mx-auto px-8 md:px-24 lg:px-32 relative z-10">
+            <h2 class="font-display text-4xl font-bold text-center mb-16">ACTIVATION SEQUENCE</h2>
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="relative h-[180px]">
+                    <div class="glass p-4 rounded-lg border-2 border-slate-700 dark:border-slate-600 hover:border-cyan transition-all bg-slate-900/80 h-full flex flex-col justify-center relative group cursor-pointer">
+                        <div class="absolute -top-4 left-6 w-10 h-10 bg-slate-900 border-2 border-cyan text-cyan flex items-center justify-center font-display font-bold text-xl">01</div>
+                        <h3 class="font-display text-2xl font-bold mb-1 text-white">INITIATE SOS</h3>
+                        <p class="text-slate-300 text-lg leading-relaxed font-medium">Launch app. Primary panic button active on launch.</p>
+                        <div class="mt-2 h-1 w-12 bg-cyan group-hover:w-full transition-all"></div>
                     </div>
-
-                    <div class="relative reveal-on-scroll delay-100 group">
-                        <div class="bg-background p-4 border border-border rounded-2xl text-center hover:border-accent transition-colors duration-300 h-full">
-                            <div class="w-20 h-20 mx-auto -mt-10 bg-accent text-white rounded-2xl flex items-center justify-center text-3xl font-bold shadow-lg shadow-accent/30 group-hover:scale-110 transition-transform">02</div>
-                            <div class="mt-8 mb-6 bg-amber-50 w-20 h-20 mx-auto rounded-full flex items-center justify-center">
-                                <i data-lucide="mouse-pointer-click" class="w-10 h-10 text-accent"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-3">Select Reason</h3>
-                            <p class="text-muted-foreground">One tap to categorize: Crime, Accident, Harassment, or Medical.</p>
-                        </div>
+                </div>
+                <div class="relative h-[180px]">
+                    <div class="glass p-4 rounded-lg border-2 border-slate-700 dark:border-slate-600 hover:border-blue-600 transition-all bg-slate-900/80 h-full flex flex-col justify-center relative group cursor-pointer">
+                        <div class="absolute -top-4 left-6 w-10 h-10 bg-slate-900 border-2 border-blue-600 text-blue-600 flex items-center justify-center font-display font-bold text-xl">02</div>
+                        <h3 class="font-display text-2xl font-bold mb-1 text-white">DEFINE THREAT</h3>
+                        <p class="text-slate-300 text-lg leading-relaxed font-medium">Select vector: Medical, Criminal, or Fire.</p>
+                        <div class="mt-2 h-1 w-12 bg-blue-600 group-hover:w-full transition-all"></div>
                     </div>
-
-                    <div class="relative reveal-on-scroll delay-200 group">
-                        <div class="bg-background p-4 border border-border rounded-2xl text-center hover:border-green-500 transition-colors duration-300 h-full">
-                            <div class="w-20 h-20 mx-auto -mt-10 bg-green-600 text-white rounded-2xl flex items-center justify-center text-3xl font-bold shadow-lg shadow-green-600/30 group-hover:scale-110 transition-transform">03</div>
-                            <div class="mt-8 mb-6 bg-green-50 w-20 h-20 mx-auto rounded-full flex items-center justify-center">
-                                <i data-lucide="siren" class="w-10 h-10 text-green-600"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-3">Police Dispatched</h3>
-                            <p class="text-muted-foreground">Nearest patrol unit receives your location and heads your way.</p>
-                        </div>
+                </div>
+                <div class="relative h-[180px]">
+                    <div class="glass p-4 rounded-lg border-2 border-slate-700 dark:border-slate-600 hover:border-green-500 transition-all bg-slate-900/80 h-full flex flex-col justify-center relative group cursor-pointer">
+                        <div class="absolute -top-4 left-6 w-10 h-10 bg-slate-900 border-2 border-green-500 text-green-500 flex items-center justify-center font-display font-bold text-xl">03</div>
+                        <h3 class="font-display text-2xl font-bold mb-1 text-white">DEPLOYMENT</h3>
+                        <p class="text-slate-300 text-lg leading-relaxed font-medium">Unit dispatched. Live ETA displayed on HUD.</p>
+                        <div class="mt-2 h-1 w-12 bg-green-500 group-hover:w-full transition-all"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="why-choose-us" class="py-24 bg-slate-50 relative">
-         <div class="container mx-auto px-4">
-             <div class="grid lg:grid-cols-2 gap-16 items-center">
-                 <div class="reveal-on-scroll">
-                     <h2 class="text-4xl lg:text-5xl font-bold mb-6 text-foreground">Why Choose SafeLanka?</h2>
-                     <p class="text-lg text-muted-foreground mb-8">We aren't just an app; we are a direct lifeline to safety infrastructure.</p>
-                     
-                     <div class="space-y-6">
-                         <div class="flex gap-4">
-                             <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
-                                 <i data-lucide="server" class="w-6 h-6 text-primary"></i>
-                             </div>
-                             <div>
-                                 <h4 class="text-xl font-bold mb-2">Government Integrated</h4>
-                                 <p class="text-slate-600">The only app directly linked to the Police Dispatch Command Center.</p>
-                             </div>
-                         </div>
-                         <div class="flex gap-4">
-                             <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
-                                 <i data-lucide="lock-keyhole" class="w-6 h-6 text-green-600"></i>
-                             </div>
-                             <div>
-                                 <h4 class="text-xl font-bold mb-2">Data Privacy First</h4>
-                                 <p class="text-slate-600">End-to-end encryption ensures your location and identity are seen only by responders.</p>
-                             </div>
-                         </div>
-                         <div class="flex gap-4">
-                             <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center shrink-0">
-                                 <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
-                             </div>
-                             <div>
-                                 <h4 class="text-xl font-bold mb-2">Zero Latency</h4>
-                                 <p class="text-slate-600">Built on high-speed cloud infrastructure to ensure your SOS is received instantly.</p>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 
-                 <div class="bg-white p-8 rounded-3xl shadow-xl border border-border reveal-on-scroll delay-200">
-                     <div class="grid grid-cols-2 gap-4 text-center">
-                        <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-red-600 mb-2">100%</div>
-                             <div class="text-sm text-slate-500 font-medium">For Citizens</div>
-                         </div>
-                         <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-blue-600 mb-2">2min</div>
-                             <div class="text-sm text-slate-500 font-medium">Avg Response</div>
-                         </div>
-                         <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
-                             <div class="text-sm text-slate-500 font-medium">Live Support</div>
-                         </div>
-                         <div class="p-6 bg-slate-50 rounded-2xl">
-                             <div class="text-4xl font-bold text-red-600 mb-2">10+</div>
-                             <div class="text-sm text-slate-500 font-medium">Services</div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-    </section>
-
-    <section id="about-mission" class="py-24 bg-white">
-        <div class="container mx-auto px-4 max-w-5xl text-center">
-            <div class="mb-12 reveal-on-scroll">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-4 block">Our Story</span>
-                <h2 class="text-4xl lg:text-5xl font-bold mb-6">About SafeLanka</h2>
-                <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-12 text-left">
-                <div class="reveal-on-scroll">
-                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                        <i data-lucide="flag" class="w-6 h-6 text-primary"></i> Our Mission
-                    </h3>
-                    <p class="text-lg text-slate-600 leading-relaxed">
-                        To bridge the gap between citizens and emergency services through technology. We believe every Sri Lankan deserves the peace of mind that comes from knowing help is just one tap away.
-                    </p>
+    <section id="about-us" class="py-24 relative bg-white/50 dark:bg-transparent backdrop-blur-sm">
+        <div class="container mx-auto px-8 md:px-24 lg:px-32">
+            <h2 class="font-display text-4xl font-bold text-center mb-16">DEVELOPERS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:border-cyan/50 group">
+                    <div class="relative w-20 h-20"><img src="aqeel1.jpg" class="w-full h-full object-cover rounded-full border-2 border-slate-700 relative z-10"><div class="absolute inset-0 bg-cyan rounded-full opacity-20 animate-pulse"></div></div>
+                    <div><h4 class="font-display font-bold text-lg">AQEEL LARIF</h4><p class="text-cyan text-xs tracking-widest uppercase">Data Analyst</p></div>
                 </div>
-                <div class="reveal-on-scroll delay-100">
-                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                        <i data-lucide="heart" class="w-6 h-6 text-red-500"></i> What Drives Us
-                    </h3>
-                    <p class="text-lg text-slate-600 leading-relaxed">
-                        We are driven by a passion for civic duty and technical innovation. Seeing real lives saved by our platform fuels our team to push boundaries and improve response times every single day.
-                    </p>
+                <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:border-cyan/50 group">
+                    <div class="relative w-20 h-20"><img src="Theviru1.jpg" class="w-full h-full object-cover rounded-full border-2 border-slate-700 relative z-10"><div class="absolute inset-0 bg-cyan rounded-full opacity-20 animate-pulse"></div></div>
+                    <div><h4 class="font-display font-bold text-lg">THEVIRU AMARASINGHE.</h4><p class="text-cyan text-xs tracking-widest uppercase">Full Stack Developer</p></div>
+                </div>
+                <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:border-cyan/50 group">
+                    <div class="relative w-20 h-20"><img src="Steffani1.jpg" class="w-full h-full object-cover rounded-full border-2 border-slate-700 relative z-10"><div class="absolute inset-0 bg-cyan rounded-full opacity-20 animate-pulse"></div></div>
+                    <div><h4 class="font-display font-bold text-lg">STEFFANI SILVA</h4><p class="text-cyan text-xs tracking-widest uppercase">Back End Developer</p></div>
+                </div>
+                <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:border-cyan/50 group">
+                    <div class="relative w-20 h-20"><img src="vinushki1.jpg" class="w-full h-full object-cover rounded-full border-2 border-slate-700 relative z-10"><div class="absolute inset-0 bg-cyan rounded-full opacity-20 animate-pulse"></div></div>
+                    <div><h4 class="font-display font-bold text-lg">VINUSHKI FERNANDO</h4><p class="text-cyan text-xs tracking-widest uppercase">Back End Developer</p></div>
+                </div>
+                <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:border-cyan/50 group">
+                    <div class="relative w-20 h-20"><img src="adeesha1.jpg" class="w-full h-full object-cover rounded-full border-2 border-slate-700 relative z-10"><div class="absolute inset-0 bg-cyan rounded-full opacity-20 animate-pulse"></div></div>
+                    <div><h4 class="font-display font-bold text-lg">ADEESHA INDUWARA</h4><p class="text-cyan text-xs tracking-widest uppercase">Database Developer</p></div>
+                </div>
+                <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:border-cyan/50 group">
+                    <div class="relative w-20 h-20"><img src="moditha1.jpg" class="w-full h-full object-cover rounded-full border-2 border-slate-700 relative z-10"><div class="absolute inset-0 bg-cyan rounded-full opacity-20 animate-pulse"></div></div>
+                    <div><h4 class="font-display font-bold text-lg">MODITHA FERNANDO</h4><p class="text-cyan text-xs tracking-widest uppercase">System Architect</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about-us" class="py-24 bg-gradient-to-b from-slate-900 to-slate-950 text-white scroll-mt-20">
-        <div class="container mx-auto px-4 md:px-12 lg:px-20">
-            
-            <div class="text-center mb-20 reveal-on-scroll">
-                <h2 class="text-4xl lg:text-5xl font-bold mb-4">The Minds Behind SafeLanka</h2>
-                <p class="text-xl text-slate-400 max-w-3xl mx-auto">Innovators, engineers, and patriots working for a safer nation.</p>
+    <footer class="bg-[#02040a] border-t border-slate-900 text-slate-400 relative z-10 overflow-hidden font-sans pt-20 pb-10">
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#00f2ea 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="container mx-auto px-8 md:px-24 lg:px-32 relative z-10">
+            <div class="flex flex-col lg:flex-row justify-between items-end border-b border-slate-800 pb-12 mb-12 gap-8">
+                <div class="max-w-xl">
+                    <h3 class="text-white font-display text-2xl font-bold mb-2 uppercase">Join the network</h3>
+                </div>
+                <form class="flex gap-3 w-full lg:w-auto"><input type="email" placeholder="Secure email address..." class="bg-slate-900 border border-slate-700 text-white px-6 py-3 rounded-lg focus:border-cyan outline-none w-full sm:w-80"><button class="bg-cyan text-black font-bold px-8 py-3 rounded-lg uppercase">Subscribe</button></form>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div class="reveal-on-scroll group delay-200">
-                    <div class="h-full bg-slate-800/40 backdrop-blur-md rounded-[2rem] border border-slate-700 p-8 flex flex-col items-center text-center hover:border-neon-cyan transition-colors duration-500 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-b from-neon-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div class="relative w-32 h-32 rounded-full p-1 bg-gradient-to-br from-neon-cyan to-blue-600 mb-6">
-                            <img src="aqeel1.jpg" alt="Aqeel Larif" class="w-full h-full object-cover rounded-full bg-slate-900 border-4 border-slate-900">
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2 relative z-10">Aqeel Larif</h4>
-                        <p class="text-neon-cyan text-sm font-semibold uppercase tracking-wider mb-3 relative z-10">Data Analyst</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="flex items-center gap-3"><img src="logo.jpg" class="w-10 h-10 rounded-full object-cover opacity-80"><span class="font-display font-bold text-2xl text-white tracking-wider">SAFE LANKA</span></div>
+                    <p class="text-sm leading-relaxed max-w-md">Safe Lanka is a digital public safety application designed to strengthen communication between citizens and the Sri Lanka Police. The app aims to improve response times, transparency, and overall public safety using modern technology.</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/safelanka.lk?igsh=dXg2bjkzdHM3bGM1" target="_blank" class="w-10 h-10 rounded bg-slate-900 flex items-center justify-center hover:bg-cyan hover:text-black transition-all"><i data-lucide="instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/safe-lanka-6371ab3a7" target="_blank" class="w-10 h-10 rounded bg-slate-900 flex items-center justify-center hover:bg-cyan hover:text-black transition-all"><i data-lucide="linkedin"></i></a>
+                        <a href="https://www.youtube.com/@YOUR_CHANNEL" target="_blank" class="w-10 h-10 rounded bg-slate-900 flex items-center justify-center hover:bg-cyan hover:text-black transition-all"><i data-lucide="youtube"></i></a>
                     </div>
                 </div>
-
-                <div class="reveal-on-scroll group delay-100">
-                    <div class="h-full bg-slate-800/40 backdrop-blur-md rounded-[2rem] border border-slate-700 p-8 flex flex-col items-center text-center hover:border-neon-cyan transition-colors duration-500 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-b from-neon-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div class="relative w-32 h-32 rounded-full p-1 bg-gradient-to-br from-neon-cyan to-blue-600 mb-6">
-                            <img src="Theviru1.jpg" alt="Theviru Amarasinghe" class="w-full h-full object-cover rounded-full bg-slate-900 border-4 border-slate-900">
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2 relative z-10">Theviru Amarasinghe</h4>
-                        <p class="text-neon-cyan text-sm font-semibold uppercase tracking-wider mb-3 relative z-10">Full Stack Dev</p>
-                    </div>
-                </div>
-
-                <div class="reveal-on-scroll group delay-200">
-                    <div class="h-full bg-slate-800/40 backdrop-blur-md rounded-[2rem] border border-slate-700 p-8 flex flex-col items-center text-center hover:border-neon-cyan transition-colors duration-500 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-b from-neon-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div class="relative w-32 h-32 rounded-full p-1 bg-gradient-to-br from-neon-cyan to-blue-600 mb-6">
-                            <img src="Steffani1.jpg" alt="Steffani Silva" class="w-full h-full object-cover rounded-full bg-slate-900 border-4 border-slate-900">
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2 relative z-10">Steffani Silva</h4>
-                        <p class="text-neon-cyan text-sm font-semibold uppercase tracking-wider mb-3 relative z-10">Back End Dev</p>
-                    </div>
-                </div>
-                
-                 <div class="reveal-on-scroll group">
-                    <div class="h-full bg-slate-800/40 backdrop-blur-md rounded-[2rem] border border-slate-700 p-8 flex flex-col items-center text-center hover:border-neon-cyan transition-colors duration-500 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-b from-neon-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div class="relative w-32 h-32 rounded-full p-1 bg-gradient-to-br from-neon-cyan to-blue-600 mb-6">
-                            <img src="vinushki1.jpg" alt="Vinushki Fernando" class="w-full h-full object-cover rounded-full bg-slate-900 border-4 border-slate-900">
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2 relative z-10">Vinushki Fernando</h4>
-                        <p class="text-neon-cyan text-sm font-semibold uppercase tracking-wider mb-3 relative z-10">Documentation Lead</p>
-                    </div>
-                </div>
-
-                 <div class="reveal-on-scroll group delay-100">
-                    <div class="h-full bg-slate-800/40 backdrop-blur-md rounded-[2rem] border border-slate-700 p-8 flex flex-col items-center text-center hover:border-neon-cyan transition-colors duration-500 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-b from-neon-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div class="relative w-32 h-32 rounded-full p-1 bg-gradient-to-br from-neon-cyan to-blue-600 mb-6">
-                            <img src="adeesha1.jpg" alt="Adeesha Induwara" class="w-full h-full object-cover rounded-full bg-slate-900 border-4 border-slate-900">
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2 relative z-10">Adeesha Induwara</h4>
-                        <p class="text-neon-cyan text-sm font-semibold uppercase tracking-wider mb-3 relative z-10">Database Developer</p>
-                    </div>
-                </div>
-
-                <div class="reveal-on-scroll group">
-                    <div class="h-full bg-slate-800/40 backdrop-blur-md rounded-[2rem] border border-slate-700 p-8 flex flex-col items-center text-center hover:border-neon-cyan transition-colors duration-500 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-b from-neon-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        
-                        <div class="relative w-32 h-32 rounded-full p-1 bg-gradient-to-br from-neon-cyan to-blue-600 mb-6">
-                            <img src="moditha1.jpg" alt="Moditha Fernando" class="w-full h-full object-cover rounded-full bg-slate-900 border-4 border-slate-900">
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2 relative z-10">Moditha Fernando</h4>
-                        <p class="text-neon-cyan text-sm font-semibold uppercase tracking-wider mb-3 relative z-10">Full Stack Dev</p>
-                    </div>
-                </div>
-
-                 
-
+                <div><h4 class="text-white font-bold mb-6 text-sm tracking-widest border-l-2 border-cyan pl-3">MODULES</h4><ul class="space-y-4 text-sm"><li><a href="#hero" class="hover:text-cyan">Dashboard</a></li><li><a href="#features" class="hover:text-cyan">Features Analysis</a></li><li><a href="#how-it-works" class="hover:text-cyan">Response Protocols</a></li><li><a href="#about-us" class="hover:text-cyan">Developers of Safe Lanka</a></li></ul></div>
+                <div><h4 class="text-white font-bold mb-6 text-sm tracking-widest border-l-2 border-slate-700 pl-3">CONTACT HQ</h4><ul class="space-y-4 text-sm mb-6"><li class="flex gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-cyan"></i><span>Colombo, Sri Lanka.</span></li><li class="flex gap-3"><i data-lucide="mail" class="w-4 h-4 text-cyan"></i><span>support@safelanka.lk</span></li></ul><div class="flex flex-col gap-2"><button class="bg-slate-900 border border-slate-700 py-2 px-4 rounded text-xs text-white uppercase font-bold">App Store</button><button class="bg-slate-900 border border-slate-700 py-2 px-4 rounded text-xs text-white uppercase font-bold">Google Play</button></div></div>
             </div>
-        </div>
-    </section>
-
-    <section id="download" class="py-24 relative overflow-hidden bg-gradient-to-b from-slate-950 via-[#043382] to-slate-950">
-        <div class="absolute inset-0">
-             <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
-             <div class="absolute bottom-0 left-0 w-96 h-96 bg-neon-cyan/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
-        </div>
-        
-        <div class="container mx-auto px-4 relative z-10 text-center">
-            <div class="max-w-4xl mx-auto reveal-on-scroll">
-                <i data-lucide="shield-check" class="w-16 h-16 text-white mx-auto mb-6"></i>
-                <h2 class="text-4xl lg:text-6xl font-bold mb-8 text-white">Your Safety is Our Priority</h2>
-                <p class="text-xl text-blue-100 mb-12">Join thousands of Sri Lankans who have already made the switch to smarter protection.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                    <button class="bg-white text-primary hover:bg-slate-100 shadow-2xl text-lg px-8 py-5 rounded-xl flex items-center justify-center font-bold transition-transform hover:-translate-y-1">
-                        <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-                        App Store
-                    </button>
-                    <button class="bg-charcoal text-white hover:bg-slate-800 shadow-2xl text-lg px-8 py-5 rounded-xl flex items-center justify-center font-bold transition-transform hover:-translate-y-1">
-                        <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-                        Google Play
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-slate-950 text-white py-12 border-t border-slate-900">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="flex items-center gap-3">
-                    <img 
-                        src="logo.jpg" 
-                        alt="Safe Lanka Logo" 
-                        class="w-12 h-12 rounded-full object-cover shadow-md border-2 border-white group-hover:border-blue-100 transition-all duration-300 group-hover:scale-110"
-                    >
-                    <div>
-                        <div class="font-bold text-lg">SafeLanka</div>
-                        <div class="text-sm text-gray-500">Official partner of Sri Lankan Police</div>
-                    </div>
-                </div>
-                <div class="text-center md:text-right text-gray-500 text-sm">
-                    <p>© 2025 SafeLanka. All rights reserved.</p>
-                    <div class="flex gap-4 justify-center md:justify-end mt-2">
-                        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-                    </div>
-                </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-600">
+                <span>&copy; 2025 SAFE LANKA. SECURE SYSTEM V2.0.</span>
+                <div class="flex gap-6 items-center"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span><span>SYSTEM: ONLINE</span></div><div class="hidden sm:flex items-center gap-2"><i data-lucide="shield-check" class="w-3 h-3"></i><span>AES-256</span></div></div>
             </div>
         </div>
     </footer>
 
     <script>
-        // 1. Initialize Icons
         lucide.createIcons();
 
-        // 2. Mobile Menu
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-            const icon = mobileMenu.classList.contains('open') ? 'x' : 'menu';
-            menuBtn.innerHTML = `<i data-lucide="${icon}" class="w-6 h-6"></i>`;
-            lucide.createIcons();
+        // Splash Logic
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('loading-bar');
+            const splash = document.getElementById('splash');
+            const text = document.getElementById('loading-text');
+            const percent = document.getElementById('loading-percent');
+            const steps = [{w:'20%', m:'LINKING...'}, {w:'50%', m:'VERIFYING...'}, {w:'80%', m:'LOADING...'}, {w:'100%', m:'ONLINE'}];
+            let idx = 0;
+            const int = setInterval(() => {
+                if(idx >= steps.length) { clearInterval(int); setTimeout(()=> { splash.style.opacity='0'; splash.style.visibility='hidden'; }, 500); return; }
+                bar.style.width = steps[idx].w; text.innerText = steps[idx].m; percent.innerText = steps[idx].w; idx++;
+            }, 600);
         });
 
-        // 3. Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-md', 'bg-white/95');
-                navbar.classList.remove('bg-white/0');
-            } else {
-                navbar.classList.remove('shadow-md', 'bg-white/95');
-                navbar.classList.add('bg-white/90');
-            }
-        });
+        // Theme Toggle
+        const themeBtn = document.getElementById('theme-toggle');
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); }
+        themeBtn.addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'; });
 
-        // 4. Scroll Reveal Animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        // Typewriter
+        const textToType = "PUBLIC PROTECTION";
+        let i = 0;
+        function type() { if (i < textToType.length) { document.getElementById('typewriter').innerHTML += textToType.charAt(i); i++; setTimeout(type, 100); } }
+        setTimeout(type, 3000);
 
-        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        // Slideshow
+        const slides = document.querySelectorAll('.slide-img');
+        let slideIdx = 0;
+        setInterval(() => { slides[slideIdx].style.opacity='0'; slideIdx=(slideIdx+1)%slides.length; slides[slideIdx].style.opacity='1'; }, 3000);
 
-        // 5. Infinite Carousel Logic (Refined for Change #2)
-        const track = document.getElementById('track');
-        const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const carouselContainer = document.getElementById('carousel-container');
-        
-        let originalItems = Array.from(document.querySelectorAll('.carousel-item'));
-        let itemsPerView = 3;
-        const gap = 24; // 1.5rem
-        
-        // Clone items for infinite loop
-        // We clone the first 'itemsPerView' to the end, and the last 'itemsPerView' to the beginning
-        // This ensures we can slide past the edges seamlessly
-        
-        function setupCarousel() {
-            // Determine items per view
-            if (window.innerWidth >= 1024) itemsPerView = 3;
-            else if (window.innerWidth >= 768) itemsPerView = 2;
-            else itemsPerView = 1;
+        // Scroll Reveal
+        const obs = new IntersectionObserver((es) => { es.forEach(e => { if(e.isIntersecting) { e.target.classList.remove('opacity-0', 'translate-y-10'); e.target.classList.add('opacity-100', 'translate-y-0'); } }); });
+        document.querySelectorAll('.reveal-slide-up').forEach((el) => { el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700'); obs.observe(el); });
 
-            // Clear track and rebuild with clones
-            track.innerHTML = '';
-            
-            // Clone last items for start
-            const endClones = originalItems.slice(-itemsPerView).map(item => {
-                const clone = item.cloneNode(true);
-                clone.classList.add('clone');
-                return clone;
-            });
+        // Mobile Menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => { const m = document.getElementById('mobile-menu'); m.classList.toggle('hidden'); m.classList.toggle('flex'); });
 
-            // Clone first items for end
-            const startClones = originalItems.slice(0, itemsPerView).map(item => {
-                const clone = item.cloneNode(true);
-                clone.classList.add('clone');
-                return clone;
-            });
-
-            // Append all
-            [...endClones, ...originalItems, ...startClones].forEach(item => track.appendChild(item));
-
-            // Set initial width of items
-            const containerWidth = carouselContainer.offsetWidth;
-            // Calculate item width based on container width, gap, and itemsPerView
-            // Total width = (itemWidth * N) + (gap * (N-1))
-            // containerWidth = itemWidth * N + gap * N - gap
-            // itemWidth = (containerWidth - (gap * (N-1))) / N
-            const itemWidth = (containerWidth - (gap * (itemsPerView - 1))) / itemsPerView;
-            
-            Array.from(track.children).forEach(item => {
-                item.style.width = `${itemWidth}px`;
-            });
-
-            // Start at the first real item (index = itemsPerView because of the prepended clones)
-            currentIndex = itemsPerView;
-            updateCarousel(false);
-            lucide.createIcons(); // Re-init icons for clones
+        // Animated Background
+        const canvas = document.getElementById('network-bg');
+        const ctx = canvas.getContext('2d');
+        let w, h, ps = [];
+        window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+        window.dispatchEvent(new Event('resize'));
+        class P { constructor(){ this.x=Math.random()*w; this.y=Math.random()*h; this.vx=(Math.random()-0.5)*0.5; this.vy=(Math.random()-0.5)*0.5; this.s=Math.random()*2+1; }
+            up(){ this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>w)this.vx*=-1; if(this.y<0||this.y>h)this.vy*=-1; }
+            dr(c){ ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2); ctx.fillStyle=c; ctx.fill(); }
         }
-
-        let currentIndex = 0;
-        let isTransitioning = false;
-
-        function updateCarousel(animate = true) {
-            const items = Array.from(track.children);
-            if(items.length === 0) return;
-            
-            const itemWidth = items[0].getBoundingClientRect().width;
-            const moveAmount = (itemWidth + gap) * currentIndex;
-            
-            if (animate) {
-                track.style.transition = 'transform 0.5s ease-in-out';
-            } else {
-                track.style.transition = 'none';
-            }
-            
-            track.style.transform = `translateX(-${moveAmount}px)`;
+        for(let i=0;i<60;i++) ps.push(new P());
+        function anim(){ ctx.clearRect(0,0,w,h); const dark = document.documentElement.classList.contains('dark');
+            const pc = dark ? 'rgba(0, 242, 234, 0.5)' : 'rgba(4, 51, 130, 0.5)';
+            const lc = dark ? 'rgba(0, 242, 234,' : 'rgba(4, 51, 130,';
+            ps.forEach(p => { p.up(); p.dr(pc); ps.forEach(p2 => { const d=Math.sqrt((p.x-p2.x)**2+(p.y-p2.y)**2); if(d<150){ ctx.beginPath(); ctx.strokeStyle=`${lc}${1-d/150})`; ctx.lineWidth=0.5; ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); } }); });
+            requestAnimationFrame(anim);
         }
-
-        // Handle Next Click
-        nextBtn.addEventListener('click', () => {
-            if (isTransitioning) return;
-            isTransitioning = true;
-            currentIndex++;
-            updateCarousel();
-        });
-
-        // Handle Prev Click
-        prevBtn.addEventListener('click', () => {
-            if (isTransitioning) return;
-            isTransitioning = true;
-            currentIndex--;
-            updateCarousel();
-        });
-
-        // Reset position seamlessly when transition ends
-        track.addEventListener('transitionend', () => {
-            isTransitioning = false;
-            const items = Array.from(track.children);
-            const totalOriginals = originalItems.length;
-            
-            // If we scrolled past the last real item into the clones
-            if (currentIndex >= totalOriginals + itemsPerView) {
-                currentIndex = itemsPerView; // Jump back to start
-                updateCarousel(false);
-            }
-            
-            // If we scrolled before the first real item into the clones
-            if (currentIndex < itemsPerView) {
-                currentIndex = totalOriginals + itemsPerView - 1; // Jump to end
-                updateCarousel(false); // Snap without animation
-                // Adjust index slightly to align if needed, but the logic above puts us at the last real item
-                currentIndex = totalOriginals + itemsPerView - 1 - (itemsPerView - 1); // Actually we want to show the last 'page'
-                // Simpler logic: Map index 0 (clone of last) -> real last
-                currentIndex = totalOriginals + itemsPerView - 1;
-                // Wait, precise math:
-                // Start clones count = itemsPerView
-                // Real items count = totalOriginals
-                // End clones count = itemsPerView
-                // Real item indices are [itemsPerView] to [itemsPerView + totalOriginals - 1]
-                
-                // If current index is 0 (first clone), we want to go to real last item
-                // The real last item is at index: itemsPerView + totalOriginals - 1
-                // But we want the VIEW to look correct.
-                // If we are at index (itemsPerView - 1), we are looking at the last clone.
-                // We should jump to the corresponding real item.
-                
-                currentIndex = currentIndex + totalOriginals;
-                updateCarousel(false);
-            }
-        });
-        
-        // Resize Handler
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(setupCarousel, 100);
-        });
-
-        // Initial Setup
-        window.addEventListener('load', setupCarousel);
-
+        anim();
     </script>
 </body>
 </html>
-
-
-
-
-
-
