@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy | SafeLanka</title>
+    <meta name="description" content="Privacy Policy for the SafeLanka public safety application." />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Rajdhani', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#043382',
+                        cyan: { DEFAULT: '#00f2ea', dim: 'rgba(0, 242, 234, 0.1)' },
+                        dark: { bg: '#02040a', surface: '#0d111c', border: '#1e293b' },
+                        light: { bg: '#f8fafc', surface: '#ffffff', border: '#e2e8f0' }
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { @apply transition-colors duration-500; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { @apply bg-transparent; }
+        ::-webkit-scrollbar-thumb { @apply bg-slate-500 rounded-full hover:bg-cyan; }
+
+        .glass {
+            @apply backdrop-blur-xl border transition-all duration-300;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark .glass {
+            background: rgba(13, 17, 28, 0.9);
+            border-color: rgba(0, 242, 234, 0.3);
+        }
+
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+            background-color: #00f2ea; transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        canvas#network-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+    </style>
+</head>
+<body class="bg-light-bg text-slate-800 dark:bg-dark-bg dark:text-slate-100 overflow-x-hidden selection:bg-cyan selection:text-black">
+
+    <canvas id="network-bg"></canvas>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-cyan/20 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-lg" id="navbar">
+        <div class="container mx-auto px-6 md:px-24 lg:px-32 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-cyan rounded-full blur opacity-0 group-hover:opacity-50 transition-opacity"></div>
+                    <img src="logo.jpg" class="w-10 h-10 rounded-full relative z-10 border-2 border-slate-400 dark:border-cyan shadow-md">
+                </div>
+                <div class="font-display font-bold text-lg md:text-xl tracking-wider">SAFE<span class="text-blue-600 dark:text-cyan">LANKA</span></div>
+            </a>
+            <div class="hidden md:flex items-center gap-6 lg:gap-10">
+                <a href="index.html#features" class="nav-link font-medium hover:text-blue-600 dark:hover:text-cyan tracking-wide transition-colors text-sm lg:text-base">FEATURES</a>
+                <a href="index.html#how-it-works" class="nav-link font-medium hover:text-blue-600 dark:hover:text-cyan tracking-wide transition-colors text-sm lg:text-base">PROTOCOL</a>
+                <a href="index.html#about-us" class="nav-link font-medium hover:text-blue-600 dark:hover:text-cyan tracking-wide transition-colors text-sm lg:text-base">TEAM</a>
+                <a href="privacy-policy.html" class="nav-link font-medium text-blue-600 dark:text-cyan tracking-wide transition-colors text-sm lg:text-base">PRIVACY</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors z-20 border border-transparent hover:border-cyan">
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+                </button>
+                <a href="index.html#download" class="hidden sm:flex items-center gap-2 bg-slate-900 dark:bg-cyan text-white dark:text-black px-4 lg:px-6 py-2 rounded-lg font-bold hover:bg-blue-700 dark:hover:bg-white transition-all shadow-lg hover:shadow-cyan/50 transform hover:-translate-y-0.5 text-xs lg:text-sm">
+                    GET ACCESS <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-dark-bg border-t border-slate-700 p-6 flex-col gap-4 shadow-2xl">
+            <a href="index.html#features" class="block p-3 hover:bg-cyan/10 rounded text-cyan">FEATURES</a>
+            <a href="index.html#how-it-works" class="block p-3 hover:bg-cyan/10 rounded text-cyan">PROTOCOL</a>
+            <a href="privacy-policy.html" class="block p-3 hover:bg-cyan/10 rounded text-cyan">PRIVACY</a>
+            <a href="index.html#download" class="block w-full text-center bg-cyan text-black py-3 font-bold mt-4 rounded">DOWNLOAD APP</a>
+        </div>
+    </nav>
+
+    <!-- Privacy Policy Content -->
+    <section class="relative pt-32 pb-24">
+        <div class="container mx-auto px-6 md:px-24 lg:px-32 relative z-10">
+
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded border border-cyan/50 bg-cyan/10 text-cyan text-xs font-display tracking-widest mb-6">
+                    <i data-lucide="shield" class="w-3 h-3"></i> LEGAL PROTOCOL
+                </div>
+                <h1 class="font-display font-bold text-3xl md:text-5xl tracking-wider mb-4">PRIVACY <span class="text-blue-600 dark:text-cyan">POLICY</span></h1>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Effective Date: March 28, 2026</p>
+            </div>
+
+            <!-- Policy Sections -->
+            <div class="max-w-4xl mx-auto space-y-8">
+
+                <!-- 1. Introduction -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">01</span> INTRODUCTION
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>Safe Lanka ("we," "our," or "us") is a digital public safety application designed to strengthen communication between citizens and the Sri Lanka Police. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Safe Lanka mobile application.</p>
+                        <p>By using Safe Lanka, you agree to the collection and use of information in accordance with this policy. If you do not agree with the terms of this Privacy Policy, please do not access the application.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Information We Collect -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">02</span> INFORMATION WE COLLECT
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>We may collect the following types of information:</p>
+                        <ul class="space-y-2 ml-4">
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Account Information:</strong> Name, email address, phone number, National Identity Card (NIC) number, and profile details provided during registration.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">GPS Location Data:</strong> Real-time location coordinates used for SOS alerts, crime report mapping, and nearby police station identification.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Photos and Camera Access:</strong> Images captured or uploaded as evidence when submitting crime reports.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Crime Report Data:</strong> Details of incidents you report, including description, category, location, and any attached media.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Traffic Fine Data:</strong> Information related to traffic violations, fine amounts, and payment status linked to your vehicle or NIC.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Payment Information:</strong> Transaction data processed through PayHere payment gateway for fine payments. We do not store your credit/debit card details directly.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">AI Chat Data:</strong> Conversations with our AI legal assistant powered by Google Gemini, including your queries and the responses generated.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Device Information:</strong> Device type, operating system, unique device identifiers, and app version for diagnostics and compatibility.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. How We Use Your Information -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">03</span> HOW WE USE YOUR INFORMATION
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>We use the collected information for the following purposes:</p>
+                        <ul class="space-y-2 ml-4">
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">SOS Alerts:</strong> To transmit your real-time location and emergency details to the nearest police station for rapid response.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Crime Reports:</strong> To process, store, and forward citizen-submitted crime reports to the Sri Lanka Police for investigation.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Fine Payments:</strong> To facilitate the viewing and payment of traffic fines through the integrated PayHere payment gateway.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">AI Legal Assistant:</strong> To provide legal guidance and information through our Google Gemini-powered chatbot.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">SMS Notifications:</strong> To send critical alerts including SOS confirmations, crime report status updates, and fine payment reminders.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Authentication:</strong> To verify your identity using JSON Web Tokens (JWT) and maintain secure session management.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. Data Sharing -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">04</span> DATA SHARING
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>We may share your information with the following parties strictly for the purposes described above:</p>
+                        <ul class="space-y-2 ml-4">
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Sri Lanka Police:</strong> Crime reports, SOS alerts, and related evidence are shared with law enforcement for investigation and emergency response.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">PayHere:</strong> Payment transaction data is processed by PayHere (https://www.payhere.lk), our third-party payment gateway, subject to their own privacy policy.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Google Maps API:</strong> Location data is transmitted to Google Maps for map rendering, geocoding, and police station proximity services.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Google Gemini:</strong> Chat queries are sent to Google Gemini API to generate AI-powered legal guidance responses.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Railway Hosting:</strong> Our backend services are hosted on Railway (https://railway.app), where your data is stored and processed on their secure infrastructure.</span></li>
+                        </ul>
+                        <p>We do not sell, trade, or rent your personal information to third parties for marketing purposes.</p>
+                    </div>
+                </div>
+
+                <!-- 5. Location Data -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">05</span> LOCATION DATA
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>Safe Lanka requests access to your device's GPS location to provide core safety features including SOS alerts, crime report geolocation, and nearby police station identification.</p>
+                        <p><strong class="text-slate-800 dark:text-white">Important:</strong> Location data is collected <strong class="text-slate-800 dark:text-white">only during active use</strong> of the application. We do <strong class="text-slate-800 dark:text-white">not</strong> collect location data in the background when the app is closed or not actively in use. You may revoke location permissions at any time through your device settings.</p>
+                    </div>
+                </div>
+
+                <!-- 6. Camera and Media Access -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">06</span> CAMERA AND MEDIA ACCESS
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>The application may request access to your device's camera and photo gallery to allow you to capture or attach photographic evidence when submitting crime reports. This access is used solely for the purpose of crime reporting and is never activated without your explicit action. You may revoke camera and media permissions at any time through your device settings.</p>
+                    </div>
+                </div>
+
+                <!-- 7. Data Retention -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">07</span> DATA RETENTION
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>We retain your personal information for as long as your account is active or as needed to provide you with our services. Crime report data and associated evidence may be retained for longer periods as required by Sri Lankan law enforcement procedures and legal obligations.</p>
+                        <p>If you wish to delete your account and associated data, you may contact us at the email address provided below. We will process your request in accordance with applicable laws and regulations.</p>
+                    </div>
+                </div>
+
+                <!-- 8. Your Rights -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">08</span> YOUR RIGHTS
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>You have the following rights regarding your personal data:</p>
+                        <ul class="space-y-2 ml-4">
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Access:</strong> You may request a copy of the personal data we hold about you.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Correction:</strong> You may request correction of inaccurate or incomplete personal data.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Deletion:</strong> You may request deletion of your personal data, subject to legal retention requirements.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Withdraw Consent:</strong> You may withdraw consent for data processing at any time by disabling permissions or deleting your account.</span></li>
+                        </ul>
+                        <p>To exercise any of these rights, please contact us using the information provided in the Contact section below.</p>
+                    </div>
+                </div>
+
+                <!-- 9. Security -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">09</span> SECURITY
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>We implement industry-standard security measures to protect your personal information:</p>
+                        <ul class="space-y-2 ml-4">
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">JWT Authentication:</strong> All user sessions are secured using JSON Web Tokens to prevent unauthorized access.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">Role-Based Access Control (RBAC):</strong> Data access is restricted based on user roles (citizen, police officer, admin) to ensure appropriate permissions.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan mt-1.5 text-xs"><i data-lucide="chevron-right" class="w-3 h-3"></i></span><span><strong class="text-slate-800 dark:text-white">HTTPS Encryption:</strong> All data transmitted between the application and our servers is encrypted using HTTPS/TLS protocols.</span></li>
+                        </ul>
+                        <p>While we strive to protect your personal information, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security.</p>
+                    </div>
+                </div>
+
+                <!-- 10. Children's Privacy -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">10</span> CHILDREN'S PRIVACY
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>Safe Lanka is intended for users who are <strong class="text-slate-800 dark:text-white">18 years of age or older</strong>. We do not knowingly collect personal information from individuals under the age of 18. If we become aware that we have inadvertently collected data from a minor, we will take immediate steps to delete such information from our records.</p>
+                        <p>If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.</p>
+                    </div>
+                </div>
+
+                <!-- 11. Changes to This Policy -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">11</span> CHANGES TO THIS POLICY
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, operational, or regulatory reasons. When we make changes, we will update the "Effective Date" at the top of this policy and notify users through the application.</p>
+                        <p>We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information.</p>
+                    </div>
+                </div>
+
+                <!-- 12. Contact -->
+                <div class="glass p-6 md:p-8 rounded-2xl">
+                    <h2 class="font-display font-bold text-lg md:text-xl tracking-wider text-blue-600 dark:text-cyan mb-4 flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-500 border border-slate-700 rounded px-2 py-0.5">12</span> CONTACT
+                    </h2>
+                    <div class="text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-300 space-y-3">
+                        <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+                        <div class="glass p-4 rounded-lg mt-4 space-y-2">
+                            <p class="flex items-center gap-3"><i data-lucide="user" class="w-4 h-4 text-cyan"></i><strong class="text-slate-800 dark:text-white">Mohamed Aqeel Jameel</strong></p>
+                            <p class="flex items-center gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-cyan"></i><span>Colombo, Sri Lanka</span></p>
+                            <p class="flex items-center gap-3"><i data-lucide="mail" class="w-4 h-4 text-cyan"></i><span>teamsafelanka@gmail.com</span></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#02040a] border-t border-slate-900 text-slate-400 relative z-10 overflow-hidden font-sans pt-20 pb-10">
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#00f2ea 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="container mx-auto px-6 md:px-24 lg:px-32 relative z-10">
+            <div class="flex flex-col lg:flex-row justify-between items-center lg:items-end border-b border-slate-800 pb-12 mb-12 gap-8 text-center lg:text-left">
+                <div class="max-w-xl">
+                    <h3 class="text-white font-display text-2xl font-bold mb-2 uppercase">Join the network</h3>
+                </div>
+                <form class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                    <input type="email" placeholder="Secure email address..." class="bg-slate-900 border border-slate-700 text-white px-6 py-3 rounded-lg focus:border-cyan outline-none w-full sm:w-80 text-sm">
+                    <button class="bg-cyan text-black font-bold px-8 py-3 rounded-lg uppercase text-sm">Subscribe</button>
+                </form>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="sm:col-span-2 space-y-6">
+                    <div class="flex items-center justify-center sm:justify-start gap-3"><img src="logo.jpg" class="w-10 h-10 rounded-full object-cover opacity-80"><span class="font-display font-bold text-2xl text-white tracking-wider uppercase">Safe Lanka</span></div>
+                    <p class="text-sm leading-relaxed max-w-md mx-auto sm:mx-0 text-center sm:text-left">Safe Lanka is a digital public safety application designed to strengthen communication between citizens and the Sri Lanka Police. The app aims to improve response times, transparency, and overall public safety using modern technology.</p>
+                    <div class="flex justify-center sm:justify-start gap-4">
+                        <a href="https://www.instagram.com/safelanka.lk?igsh=dXg2bjkzdHM3bGM1" target="_blank" class="w-10 h-10 rounded bg-slate-900 flex items-center justify-center hover:bg-cyan hover:text-black transition-all"><i data-lucide="instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/safe-lanka-6371ab3a7" target="_blank" class="w-10 h-10 rounded bg-slate-900 flex items-center justify-center hover:bg-cyan hover:text-black transition-all"><i data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-white font-bold mb-6 text-sm tracking-widest border-l-0 sm:border-l-2 border-cyan sm:pl-3">MODULES</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="index.html#home" class="hover:text-cyan">Dashboard</a></li>
+                        <li><a href="index.html#features" class="hover:text-cyan">Features Analysis</a></li>
+                        <li><a href="index.html#how-it-works" class="hover:text-cyan">Response Protocols</a></li>
+                        <li><a href="index.html#about-us" class="hover:text-cyan">Developers</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-cyan">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="text-center sm:text-left">
+                    <h4 class="text-white font-bold mb-6 text-sm tracking-widest border-l-0 sm:border-l-2 border-slate-700 sm:pl-3 uppercase">Contact</h4>
+                    <ul class="space-y-4 text-sm mb-6">
+                        <li class="flex justify-center sm:justify-start gap-3"><i data-lucide="map-pin" class="w-4 h-4 text-cyan"></i><span>Colombo, Sri Lanka.</span></li>
+                        <li class="flex justify-center sm:justify-start gap-3"><i data-lucide="mail" class="w-4 h-4 text-cyan"></i><span>teamsafelanka@gmail.com</span></li>
+                    </ul>
+                    <div class="flex flex-col gap-2 max-w-[200px] mx-auto sm:mx-0">
+                        <button class="bg-slate-900 border border-slate-700 py-2 px-4 rounded text-[10px] text-white uppercase font-bold">App Store</button>
+                        <button class="bg-slate-900 border border-slate-700 py-2 px-4 rounded text-[10px] text-white uppercase font-bold">Google Play</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-mono text-slate-600">
+                <span>&copy; 2025 SAFE LANKA. SECURE SYSTEM V2.0.</span>
+                <div class="flex gap-6 items-center">
+                    <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span><span>SYSTEM: ONLINE</span></div>
+                    <div class="hidden sm:flex items-center gap-2"><i data-lucide="shield-check" class="w-3 h-3"></i><span>AES-256</span></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Theme Toggle
+        const themeBtn = document.getElementById('theme-toggle');
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); }
+        themeBtn.addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'; });
+
+        // Mobile Menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => { const m = document.getElementById('mobile-menu'); m.classList.toggle('hidden'); m.classList.toggle('flex'); });
+
+        // Animated Background
+        const canvas = document.getElementById('network-bg');
+        const ctx = canvas.getContext('2d');
+        let w, h, ps = [];
+        window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
+        window.dispatchEvent(new Event('resize'));
+        class P { constructor(){ this.x=Math.random()*w; this.y=Math.random()*h; this.vx=(Math.random()-0.5)*0.5; this.vy=(Math.random()-0.5)*0.5; this.s=Math.random()*2+1; }
+            up(){ this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>w)this.vx*=-1; if(this.y<0||this.y>h)this.vy*=-1; }
+            dr(c){ ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2); ctx.fillStyle=c; ctx.fill(); }
+        }
+        for(let i=0;i<60;i++) ps.push(new P());
+        function anim(){ ctx.clearRect(0,0,w,h); const dark = document.documentElement.classList.contains('dark');
+            const pc = dark ? 'rgba(0, 242, 234, 0.5)' : 'rgba(4, 51, 130, 0.5)';
+            const lc = dark ? 'rgba(0, 242, 234,' : 'rgba(4, 51, 130,';
+            ps.forEach(p => { p.up(); p.dr(pc); ps.forEach(p2 => { const d=Math.sqrt((p.x-p2.x)**2+(p.y-p2.y)**2); if(d<150){ ctx.beginPath(); ctx.strokeStyle=`${lc}${1-d/150})`; ctx.lineWidth=0.5; ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); } }); });
+            requestAnimationFrame(anim);
+        }
+        anim();
+    </script>
+</body>
+</html>
